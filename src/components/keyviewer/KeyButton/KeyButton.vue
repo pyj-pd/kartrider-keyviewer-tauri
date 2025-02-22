@@ -8,6 +8,7 @@ import {
 } from "@/utils/keyviewer"
 import { storeToRefs } from "pinia"
 import ArrowUp from "./ArrowUp.vue"
+import type { ArrowKeyType } from "@/constants/keyviewer/arrow"
 
 const { keyTemplate, keyPressData } = storeToRefs(useKeyViewerStore())
 
@@ -32,7 +33,7 @@ const keyType = getKeybindType(props.keybindData)
       }"
     >
       <template v-if="keyType === 'arrow'">
-        <ArrowUp />
+        <ArrowUp :keycode="getKeybindKeyCode(keybindData) as ArrowKeyType" />
       </template>
       <template v-else>
         {{ getKeybindLabel(keybindData) }}

@@ -52,6 +52,7 @@ onBeforeUnmount(() => {
 
 <template>
   <main
+    data-tauri-drag-region
     class="keyviewer-container"
     v-if="keyTemplate"
     :style="{
@@ -77,28 +78,8 @@ onBeforeUnmount(() => {
   width: auto;
   height: 100vh;
 
-  background-color: white;
-
-  // Keys
-  & > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    grid-row: 1;
-    grid-column: 1;
-
-    background-color: lightgray;
-
-    border-radius: 1vw;
-
-    overflow: hidden;
-    font-weight: bold;
-
-    &.pressed {
-      background-color: black;
-      color: white;
-    }
+  > * {
+    pointer-events: none;
   }
 }
 </style>

@@ -1,9 +1,23 @@
+<script setup lang="ts">
+import {
+  ARROW_KEYCODE_ROTATIONS,
+  type ArrowKeyType,
+} from "@/constants/keyviewer/arrow"
+
+const props = defineProps<{
+  keycode: ArrowKeyType
+}>()
+
+const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
+</script>
+
 <template>
   <svg
     class="arrow"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 166 147"
+    :style="{ transform: `rotate(${arrowRotation})` }"
   >
     <path
       fill="currentColor"

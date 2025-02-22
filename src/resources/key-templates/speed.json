@@ -13,5 +13,5 @@
     "e": "DownArrow",
     "f": "RightArrow"
   },
-  "gridAreas": ["a a . . c .", "b b . d e f"]
+  "gridAreas": ["a a . c .", "b b d e f"]
 }

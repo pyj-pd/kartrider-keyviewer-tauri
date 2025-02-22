@@ -6,6 +6,7 @@ import {
   type WebviewItem,
 } from "./constants/webviews"
 import "@/styles/global.scss"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 
 const currentPage = ref<null | WebviewItem>(null)
 
@@ -15,6 +16,8 @@ onMounted(() => {
 
   currentPage.value =
     webviewItems.find((item) => item.label === label) ?? defaultWebview
+
+  getCurrentWindow().show()
 })
 </script>
 
