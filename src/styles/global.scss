@@ -1,14 +1,22 @@
+@use "./fonts.scss";
+
 * {
   padding: 0;
   margin: 0;
 
   box-sizing: border-box;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 html,
 body {
   width: 100vw;
   min-height: 100vh;
+
+  font-family: "LINE Seed", sans-serif;
 
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
