@@ -1,11 +1,13 @@
+import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 import { listen } from "@tauri-apps/api/event"
-import { onMounted, ref } from "vue"
+import { storeToRefs } from "pinia"
+import { onMounted } from "vue"
 
 /**
  * Initialize key viewer listener. Should only be used on `KeyViewer` components once.
  */
 export const initKeyViewer = () => {
-  const keyPressData = ref<{ [key: string]: "pressed" | "released" }>({})
+  const { keyPressData } = storeToRefs(useKeyViewerStore())
 
   onMounted(() => {
     listen<string>("keypress", (key) => {
@@ -16,6 +18,4 @@ export const initKeyViewer = () => {
       keyPressData.value[key.payload] = "released"
     })
   })
-
-  return { keyPressData }
 }

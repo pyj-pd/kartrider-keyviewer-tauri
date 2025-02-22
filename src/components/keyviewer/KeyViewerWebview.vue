@@ -5,29 +5,33 @@ import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window"
 import { parseJSONFile } from "@/utils/json"
 import { KeyTemplate } from "@/types/key-templates"
 import { invoke } from "@tauri-apps/api/core"
+import { storeToRefs } from "pinia"
+import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import KeyButton from "./KeyButton/KeyButton.vue"
 
-const speedTemplate = ref<null | KeyTemplate>(null)
+initKeyViewer()
 
-const { keyPressData } = initKeyViewer()
+const { keyTemplate } = storeToRefs(useKeyViewerStore())
 
 // Relative sizes for calculation
 const keySize = 100
 const gap = 10
 
-// Absolute sizes for CSS styling
+// Absolute sizes
 const gapStyle = ref<null | string>(null)
 
 const openSettingsWindow = () => invoke("open_settings")
 
 onMounted(async () => {
   // Read template
-  speedTemplate.value = await parseJSONFile(
+  // @todo Make template change feature
+  keyTemplate.value = await parseJSONFile(
     "resources/key-templates/speed.json",
     KeyTemplate,
   )
 
-  const columnCount = speedTemplate.value?.gridAreas[0].split(" ").length
-  const rowCount = speedTemplate.value?.gridAreas.length
+  const columnCount = keyTemplate.value?.gridAreas[0].split(" ").length
+  const rowCount = keyTemplate.value?.gridAreas.length
 
   // Set window size
   const width = keySize * columnCount + gap * (columnCount - 1)
@@ -49,33 +53,18 @@ onBeforeUnmount(() => {
 <template>
   <main
     class="keyviewer-container"
-    v-if="speedTemplate"
+    v-if="keyTemplate"
     :style="{
-      gridTemplate: speedTemplate.gridAreas
-        .map((line) => `'${line}'`)
-        .join('\n'),
+      gridTemplate: keyTemplate.gridAreas.map((line) => `'${line}'`).join('\n'),
       gap: gapStyle ?? undefined,
     }"
   >
-    <div
-      v-for="(keybind, gridArea) in speedTemplate.keybinds"
-      :class="{
-        pressed:
-          keyPressData[
-            typeof keybind === 'string' ? keybind : keybind.keyCode
-          ] === 'pressed',
-      }"
+    <KeyButton
+      v-for="(keybindData, gridArea) in keyTemplate.keybinds"
       :key="gridArea"
-      :style="{
-        gridArea,
-      }"
-    >
-      {{
-        typeof keybind === "string"
-          ? keybind
-          : (keybind.customLabel ?? keybind.keyCode)
-      }}
-    </div>
+      :keybind-data="keybindData"
+      :grid-area="gridArea"
+    />
   </main>
 </template>
 
