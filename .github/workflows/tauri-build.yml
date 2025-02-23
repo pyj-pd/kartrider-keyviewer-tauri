@@ -30,6 +30,32 @@ jobs:
         with:
           node-version: lts/*
 
+      # pnpm cache
+      - name: Get pnpm cache directory
+        id: pnpm-cache-dir
+        shell: bash
+        run: echo "dir=$(pnpm store path)" >> ${GITHUB_OUTPUT}
+
+      - name: Restore pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # rust cache
+      - name: Restore Rust cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -49,4 +75,4 @@ jobs:
         with:
           name: "Tauri build artifact"
 
-          path: ./src-tauri/target/release/bundle
+          path: ./src-tauri/target/release
