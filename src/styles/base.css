@@ -1,11 +1,7 @@
-@use "./fonts.scss";
+@import "./fonts.css";
+@import "./tailwind.css";
 
 * {
-  padding: 0;
-  margin: 0;
-
-  box-sizing: border-box;
-
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -16,7 +12,8 @@ body {
   width: 100vw;
   min-height: 100vh;
 
-  font-family: "LINE Seed", sans-serif;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
 
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;

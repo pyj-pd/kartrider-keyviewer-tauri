@@ -3,21 +3,21 @@ use tauri::{Emitter, Manager};
 
 #[tauri::command]
 async fn open_settings(app: tauri::AppHandle) {
-    if let Some(settings_window) = app.get_webview_window("settings") {
-        // Focus if already open
-        settings_window.show().unwrap();
-        settings_window.unminimize().unwrap();
-        settings_window.set_focus().unwrap();
-    } else {
-        // Create window if not open
-        tauri::WebviewWindowBuilder::from_config(
-            &app,
-            &app.config().app.windows.get(1).unwrap().clone()
-        )
-        .unwrap()
-        .build()
-        .unwrap();
-    }
+    // if let Some(settings_window) = app.get_webview_window("settings") {
+    //     // Focus if already open
+    //     settings_window.show().unwrap();
+    //     settings_window.unminimize().unwrap();
+    //     settings_window.set_focus().unwrap();
+    // } else {
+    //     // Create window if not open
+    //     tauri::WebviewWindowBuilder::from_config(
+    //         &app,
+    //         &app.config().app.windows.get(1).unwrap().clone()
+    //     )
+    //     .unwrap()
+    //     .build()
+    //     .unwrap();
+    // }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

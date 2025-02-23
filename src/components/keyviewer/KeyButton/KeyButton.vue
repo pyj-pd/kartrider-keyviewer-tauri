@@ -24,8 +24,10 @@ const keyType = getKeybindType(props.keybindData)
   <template v-if="keyTemplate !== null">
     <div
       :class="[
-        'button-container',
-        keyPressData[getKeybindKeyCode(keybindData)] === 'pressed' && 'pressed',
+        'flex items-center justify-center rounded-border text-[2.5vw] overflow-hidden font-bold',
+        keyPressData[getKeybindKeyCode(keybindData)] === 'pressed'
+          ? 'bg-primary-900 text-primary-100'
+          : 'bg-primary-100 text-primary-900',
       ]"
       :key="gridArea"
       :style="{
@@ -41,26 +43,3 @@ const keyType = getKeybindType(props.keybindData)
     </div>
   </template>
 </template>
-
-<style lang="scss" scoped>
-.button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  grid-row: 1;
-  grid-column: 1;
-
-  background-color: lightgray;
-
-  border-radius: 1vw;
-
-  overflow: hidden;
-  font-weight: bold;
-
-  &.pressed {
-    background-color: black;
-    color: white;
-  }
-}
-</style>

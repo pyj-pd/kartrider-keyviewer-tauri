@@ -2,11 +2,22 @@ import vue from "@vitejs/plugin-vue"
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
 
+import tailwindcss from "@tailwindcss/vite"
+
+import Components from "unplugin-vue-components/vite"
+import { PrimeVueResolver } from "@primevue/auto-import-resolver"
+
 const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    tailwindcss(),
+    Components({
+      resolvers: [PrimeVueResolver()],
+    }),
+  ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

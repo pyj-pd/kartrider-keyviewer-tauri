@@ -29,7 +29,6 @@
         "url": "/#settings",
         "width": 800,
         "height": 600,
-        "resizable": false,
         "create": false,
         "visible": false
       }

@@ -14,10 +14,11 @@ initKeyViewer()
 const { keyTemplate } = storeToRefs(useKeyViewerStore())
 
 // Relative sizes for calculation
-const keySize = 100
-const gap = 10
+const keySize = 10
+const gap = 1
 
 // Absolute sizes
+const initialWidth = 600
 const gapStyle = ref<null | string>(null)
 
 const openSettingsWindow = () => invoke("open_settings")
@@ -34,12 +35,18 @@ onMounted(async () => {
   const rowCount = keyTemplate.value?.gridAreas.length
 
   // Set window size
-  const width = keySize * columnCount + gap * (columnCount - 1)
-  const height = keySize * rowCount + gap * (rowCount - 1)
+  const relativeWidth = keySize * columnCount + gap * (columnCount - 1)
+  const relativeHeight = keySize * rowCount + gap * (rowCount - 1)
 
-  gapStyle.value = `${(gap / width) * 100}vw`
+  const width = initialWidth
+  const height = relativeHeight * (initialWidth / relativeWidth)
+
+  gapStyle.value = `${(gap / relativeWidth) * 100}vw`
 
   await getCurrentWindow().setSize(new LogicalSize(width, height))
+  const { width: innerWidth, height: innerHeight } =
+    await getCurrentWindow().innerSize()
+  console.log(width, height, innerWidth, innerHeight)
 
   // Double click to open settings
   window.addEventListener("dblclick", openSettingsWindow)
@@ -53,7 +60,7 @@ onBeforeUnmount(() => {
 <template>
   <main
     data-tauri-drag-region
-    class="keyviewer-container"
+    class="grid auto-cols-fr auto-rows-fr w-auto h-screen *:pointer-events-none"
     v-if="keyTemplate"
     :style="{
       gridTemplate: keyTemplate.gridAreas.map((line) => `'${line}'`).join('\n'),
@@ -68,18 +75,3 @@ onBeforeUnmount(() => {
     />
   </main>
 </template>
-
-<style lang="scss" scoped>
-.keyviewer-container {
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-rows: 1fr;
-
-  width: auto;
-  height: 100vh;
-
-  > * {
-    pointer-events: none;
-  }
-}
-</style>

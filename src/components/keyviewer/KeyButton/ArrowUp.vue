@@ -13,10 +13,10 @@ const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
 
 <template>
   <svg
-    class="arrow"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 166 147"
+    class="w-[4vw]"
     :style="{ transform: `rotate(${arrowRotation})` }"
   >
     <path
@@ -25,9 +25,3 @@ const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
     />
   </svg>
 </template>
-
-<style lang="scss" scoped>
-.arrow {
-  width: 4vw;
-}
-</style>

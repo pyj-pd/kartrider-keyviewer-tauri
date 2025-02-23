@@ -5,7 +5,7 @@ import {
   webviewItems,
   type WebviewItem,
 } from "./constants/webviews"
-import "@/styles/global.scss"
+import "@/styles/base.css"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 
 const currentPage = ref<null | WebviewItem>(null)

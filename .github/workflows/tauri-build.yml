@@ -75,4 +75,6 @@ jobs:
         with:
           name: "Tauri build artifact"
 
-          path: ./src-tauri/target/release
+          path: |
+            ./src-tauri/target/release/*.exe
+            ./src-tauri/target/release/resources
