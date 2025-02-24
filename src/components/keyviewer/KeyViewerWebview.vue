@@ -1,56 +1,66 @@
 <script setup lang="ts">
-import { initKeyViewer } from "@/composables/initKeyViewer"
-import { onBeforeUnmount, onMounted, ref } from "vue"
+import { initGlobalKeyListener } from "@/composables/initGlobalKeyListener"
+import { onBeforeUnmount, onMounted, ref, watch } from "vue"
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window"
 import { parseJSONFile } from "@/utils/json"
 import { KeyTemplate } from "@/types/key-templates"
 import { invoke } from "@tauri-apps/api/core"
 import { storeToRefs } from "pinia"
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 import KeyButton from "./KeyButton/KeyButton.vue"
+import { calculateKeyViewerWindowSize } from "@/utils/keyviewer"
+import { useConfigStore } from "@/stores/useConfigStore"
+import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 
-initKeyViewer()
+initGlobalKeyListener()
 
 const { keyTemplate } = storeToRefs(useKeyViewerStore())
+const { keyTemplatePath, width, keySize, keyGap } =
+  storeToRefs(useConfigStore())
 
-// Relative sizes for calculation
-const keySize = 10
-const gap = 1
-
-// Absolute sizes
-const initialWidth = 600
+/** Gap style used for CSS styling. */
 const gapStyle = ref<null | string>(null)
 
 const openSettingsWindow = () => invoke("open_settings")
 
 onMounted(async () => {
-  // Read template
-  // @todo Make template change feature
-  keyTemplate.value = await parseJSONFile(
-    "resources/key-templates/speed.json",
-    KeyTemplate,
-  )
-
-  const columnCount = keyTemplate.value?.gridAreas[0].split(" ").length
-  const rowCount = keyTemplate.value?.gridAreas.length
-
-  // Set window size
-  const relativeWidth = keySize * columnCount + gap * (columnCount - 1)
-  const relativeHeight = keySize * rowCount + gap * (rowCount - 1)
-
-  const width = initialWidth
-  const height = relativeHeight * (initialWidth / relativeWidth)
-
-  gapStyle.value = `${(gap / relativeWidth) * 100}vw`
-
-  await getCurrentWindow().setSize(new LogicalSize(width, height))
-  const { width: innerWidth, height: innerHeight } =
-    await getCurrentWindow().innerSize()
-  console.log(width, height, innerWidth, innerHeight)
-
   // Double click to open settings
   window.addEventListener("dblclick", openSettingsWindow)
 })
+
+watch(
+  keyTemplatePath,
+  () => {
+    // Read template
+    if (keyTemplatePath.value !== null)
+      parseJSONFile(keyTemplatePath.value, KeyTemplate).then(
+        (data) => (keyTemplate.value = data),
+      )
+  },
+  { immediate: true },
+)
+
+watch(
+  [keyTemplate, width, keySize, keyGap],
+  () => {
+    if (keyTemplate.value === null) return
+
+    const columnCount = keyTemplate.value?.gridAreas[0].split(" ").length
+    const rowCount = keyTemplate.value?.gridAreas.length
+
+    const { height, gapStyle: newGapStyle } = calculateKeyViewerWindowSize({
+      width: width.value,
+      keySize: keySize.value,
+      gap: keyGap.value,
+      columnCount,
+      rowCount,
+    })
+
+    gapStyle.value = newGapStyle
+
+    getCurrentWindow().setSize(new LogicalSize(width.value, height))
+  },
+  { immediate: true },
+)
 
 onBeforeUnmount(() => {
   window.removeEventListener("dblclick", openSettingsWindow)

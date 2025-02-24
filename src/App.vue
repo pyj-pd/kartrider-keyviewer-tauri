@@ -7,8 +7,10 @@ import {
 } from "./constants/webviews"
 import "@/styles/base.css"
 import { getCurrentWindow } from "@tauri-apps/api/window"
+import { initConfigStore } from "./composables/initConfigStore"
 
 const currentPage = ref<null | WebviewItem>(null)
+const { isConfigLoaded } = initConfigStore()
 
 onMounted(() => {
   // Load webview component
@@ -22,5 +24,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <component :is="currentPage?.component" />
+  <component v-if="isConfigLoaded" :is="currentPage?.component" />
 </template>

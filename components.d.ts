@@ -10,12 +10,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     ArrowUp: typeof import('./src/components/keyviewer/KeyButton/ArrowUp.vue')['default']
     Button: typeof import('primevue/button')['default']
-    Card: typeof import('primevue/card')['default']
     Checkbox: typeof import('primevue/checkbox')['default']
+    InputNumber: typeof import('primevue/inputnumber')['default']
     KeyButton: typeof import('./src/components/keyviewer/KeyButton/KeyButton.vue')['default']
     KeyViewerWebview: typeof import('./src/components/keyviewer/KeyViewerWebview.vue')['default']
-    Menubar: typeof import('primevue/menubar')['default']
     Panel: typeof import('primevue/panel')['default']
     SettingsWebview: typeof import('./src/components/settings/SettingsWebview.vue')['default']
+    Slider: typeof import('primevue/slider')['default']
+    WindowSettings: typeof import('./src/components/settings/sections/WindowSettings.vue')['default']
   }
 }

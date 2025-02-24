@@ -10,7 +10,7 @@ import { storeToRefs } from "pinia"
 import ArrowUp from "./ArrowUp.vue"
 import type { ArrowKeyType } from "@/constants/keyviewer/arrow"
 
-const { keyTemplate, keyPressData } = storeToRefs(useKeyViewerStore())
+const { keyPressData, keyTemplate } = storeToRefs(useKeyViewerStore())
 
 const props = defineProps<{
   gridArea: string

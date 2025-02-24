@@ -42,7 +42,8 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "@biomejs/biome",
-      "esbuild"
+      "esbuild",
+      "vue-demi"
     ]
   }
 }

@@ -47,4 +47,9 @@ export default defineConfig(async () => ({
       ignored: ["**/src-tauri/**"],
     },
   },
+  esbuild: {
+    supported: {
+      "top-level-await": true,
+    },
+  },
 }))

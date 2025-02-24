@@ -9,6 +9,8 @@
 
 html,
 body {
+  cursor: default;
+
   width: 100vw;
   min-height: 100vh;
 

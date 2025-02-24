@@ -6,9 +6,9 @@ import { storeToRefs } from "pinia"
 import { onMounted, ref, watch } from "vue"
 
 /**
- * Initialize key viewer listener. Should only be used on `KeyViewer` components once.
+ * Initialize global key listener. Should only be used on `KeyViewer` components once.
  */
-export const initKeyViewer = () => {
+export const initGlobalKeyListener = () => {
   const { keyTemplate, keyPressData } = storeToRefs(useKeyViewerStore())
   /**
    * List of keys that are being used in the template and should be detected.

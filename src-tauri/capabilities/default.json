@@ -12,6 +12,7 @@
     "core:window:allow-show",
     "fs:allow-read-text-file",
     "fs:allow-resource-read-recursive",
-    "fs:default"
+    "fs:default",
+    "core:window:allow-set-always-on-top"
   ]
 }

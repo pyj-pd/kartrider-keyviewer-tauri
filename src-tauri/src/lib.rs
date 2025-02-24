@@ -1,24 +1,7 @@
+mod commands;
+
 use rdev::{listen, EventType};
 use tauri::{Emitter, Manager};
-
-#[tauri::command]
-async fn open_settings(app: tauri::AppHandle) {
-    // if let Some(settings_window) = app.get_webview_window("settings") {
-    //     // Focus if already open
-    //     settings_window.show().unwrap();
-    //     settings_window.unminimize().unwrap();
-    //     settings_window.set_focus().unwrap();
-    // } else {
-    //     // Create window if not open
-    //     tauri::WebviewWindowBuilder::from_config(
-    //         &app,
-    //         &app.config().app.windows.get(1).unwrap().clone()
-    //     )
-    //     .unwrap()
-    //     .build()
-    //     .unwrap();
-    // }
-}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -44,7 +27,12 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![open_settings])
+        .invoke_handler(tauri::generate_handler![
+            commands::open_settings,
+            commands::set_keyviewer_always_on_top,
+            commands::set_keyviewer_window_size,
+            commands::update_config,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
