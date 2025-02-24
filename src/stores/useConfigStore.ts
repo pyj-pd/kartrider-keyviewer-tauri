@@ -1,4 +1,5 @@
 import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
+import type { KeyViewerConfigKey } from "@/types/config"
 import { defineStore } from "pinia"
 
 export const useConfigStore = defineStore("config-store", {
@@ -7,6 +8,14 @@ export const useConfigStore = defineStore("config-store", {
 
 export const useConfigModifiedStore = defineStore("config-modified-store", {
   state: () => ({
-    isConfigModified: false,
+    modifiedKeys: new Set<KeyViewerConfigKey>([]),
   }),
+  actions: {
+    addModifiedKeys(keys: KeyViewerConfigKey[]) {
+      for (const key of keys) this.modifiedKeys.add(key)
+    },
+    clearModifiedKeys() {
+      this.modifiedKeys.clear()
+    },
+  },
 })

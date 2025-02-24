@@ -21,7 +21,8 @@ export const getKeybindType = (keybindData: KeybindData): KeybindType => {
 }
 
 // Window
-export const maxKeyViewerWindowWidth = 800
+export const minKeyViewerWindowWidth = 100
+export const maxKeyViewerWindowWidth = 2000
 
 export const calculateKeyViewerWindowSize = ({
   width,

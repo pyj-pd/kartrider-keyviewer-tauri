@@ -1,4 +1,4 @@
-import { useConfigStore } from "@/stores/useConfigStore"
+import { useConfigModifiedStore, useConfigStore } from "@/stores/useConfigStore"
 import { KeyViewerConfig } from "@/types/config"
 import { storeToRefs } from "pinia"
 
@@ -13,15 +13,19 @@ const configFilePath = await path.join(baseDir, "config.json")
 export const useConfigFile = () => {
   const configStore = useConfigStore()
   const configData = storeToRefs(configStore)
+  const { clearModifiedKeys } = useConfigModifiedStore()
 
   /**
    * Saves config store data to the config file.
    */
-  const saveConfigFile = async () => {
+  const saveConfigAsFile = async () => {
     const configDataString = JSON.stringify(configStore.$state, undefined, 2)
 
     // Write to the file
     await writeTextFile(configFilePath, configDataString)
+
+    // Clear modified keys
+    clearModifiedKeys()
 
     // Ping all windows
     await invoke("update_config", {
@@ -43,6 +47,9 @@ export const useConfigFile = () => {
       )
       configStore.$patch(configFileData)
 
+      // Clear modified keys
+      clearModifiedKeys()
+
       return true
     } else {
       // Use default config
@@ -51,5 +58,5 @@ export const useConfigFile = () => {
     }
   }
 
-  return { saveConfigFile, loadConfigFile, configData }
+  return { saveConfigAsFile, loadConfigFile, configData }
 }

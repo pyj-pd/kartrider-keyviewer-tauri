@@ -1,16 +1,12 @@
 import { onBeforeUnmount, onMounted, ref } from "vue"
 import { useConfigFile } from "./useConfigFile"
-import { useConfigModifiedStore, useConfigStore } from "@/stores/useConfigStore"
-import { storeToRefs } from "pinia"
 import { listen, type UnlistenFn } from "@tauri-apps/api/event"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 
 /**
  * Initialize config store by loading config file data for the first time. Should only be used on `App` components once.
  */
 export const initConfigStore = () => {
-  const configStore = useConfigStore()
-  const { isConfigModified } = storeToRefs(useConfigModifiedStore())
-
   const isConfigLoaded = ref<boolean>(false)
   const { loadConfigFile } = useConfigFile()
 
@@ -18,8 +14,13 @@ export const initConfigStore = () => {
 
   onMounted(async () => {
     // Listen to config update
-    configUpdateListener = await listen<string>("config-updated", () =>
-      loadConfigFile(),
+    const currentWindow = await getCurrentWebviewWindow()
+
+    configUpdateListener = await listen<string>(
+      "config-updated",
+      async (event) => {
+        if (currentWindow.label !== event.payload) await loadConfigFile() // Reload config upon change
+      },
     )
 
     // Load initial config from the config file
@@ -35,13 +36,7 @@ export const initConfigStore = () => {
   })
 
   onBeforeUnmount(() => {
-    configUpdateListener()
-  })
-
-  configStore.$subscribe(() => {
-    if (isConfigLoaded.value === false) return
-
-    isConfigModified.value = true
+    configUpdateListener() // Unlisten config update listener
   })
 
   return { isConfigLoaded }

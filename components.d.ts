@@ -11,6 +11,8 @@ declare module 'vue' {
     ArrowUp: typeof import('./src/components/keyviewer/KeyButton/ArrowUp.vue')['default']
     Button: typeof import('primevue/button')['default']
     Checkbox: typeof import('primevue/checkbox')['default']
+    Fieldset: typeof import('primevue/fieldset')['default']
+    FloatLabel: typeof import('primevue/floatlabel')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
     KeyButton: typeof import('./src/components/keyviewer/KeyButton/KeyButton.vue')['default']
     KeyViewerWebview: typeof import('./src/components/keyviewer/KeyViewerWebview.vue')['default']

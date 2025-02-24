@@ -14,3 +14,5 @@ export const KeyViewerConfig = z.object({
 })
 
 export type KeyViewerConfig = z.infer<typeof KeyViewerConfig>
+
+export type KeyViewerConfigKey = keyof KeyViewerConfig
