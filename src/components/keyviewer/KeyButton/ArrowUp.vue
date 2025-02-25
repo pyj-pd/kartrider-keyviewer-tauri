@@ -17,7 +17,7 @@ const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
     fill="none"
     viewBox="0 0 166 147"
     class="w-[4vw]"
-    :style="{ transform: `rotate(${arrowRotation})` }"
+    :style="{ transform: `rotate(${arrowRotation})`, width: '1em' }"
   >
     <path
       fill="currentColor"

@@ -1,5 +1,7 @@
+import type { KeyViewerConfigV1 } from "@/types/config"
 import type { KeybindData } from "@/types/key-templates"
-import { keybindTypeRegex, type KeybindType } from "@/types/keyviewer"
+import { keybindTypeRegex, type KeybindType } from "@/types/keyviewer/keybind"
+import type { AbsoluteSizeData } from "@/types/keyviewer/size"
 
 // Keybinds
 export const getKeybindLabel = (keybindData: KeybindData) =>
@@ -24,31 +26,49 @@ export const getKeybindType = (keybindData: KeybindData): KeybindType => {
 export const minKeyViewerWindowWidth = 100
 export const maxKeyViewerWindowWidth = 2000
 
-export const calculateKeyViewerWindowSize = ({
+/**
+ * Calculates absolute sizes from relative sizes in config file.
+ * @param relativeSizes Relative sizes that are defined in config file.
+ * @returns Absolute sizes that match window size.
+ */
+export const calculateKeyViewerAbsoluteSizes = ({
   width,
+
   keySize,
-  gap,
+  keyGap,
+  keyBorderRadius,
+  fontSize,
+
   columnCount,
   rowCount,
 }: {
   width: number
-  keySize: number
-  gap: number
+
   columnCount: number
   rowCount: number
-}): {
-  width: number
-  height: number
-  /** Gap style which can be used for CSS styling. */
-  gapStyle: string
-} => {
+} & KeyViewerConfigV1["styling"]): AbsoluteSizeData => {
   // Set window size
-  const relativeWidth = keySize * columnCount + gap * (columnCount - 1)
-  const relativeHeight = keySize * rowCount + gap * (rowCount - 1)
+  const relativeWidth = keySize * columnCount + keyGap * (columnCount - 1)
+  const relativeHeight = keySize * rowCount + keyGap * (rowCount - 1)
 
-  const height = relativeHeight * (width / relativeWidth)
+  /**
+   * Multiply relative sizes with this to get absolute sizes
+   * that match window size.
+   */
+  const sizeRatio = width / relativeWidth
 
-  const gapStyle = `${(gap / relativeWidth) * 100}vw`
+  const height = relativeHeight * sizeRatio
 
-  return { width, height, gapStyle }
+  const gapStyle = `${keyGap * sizeRatio}px`
+  const fontSizeStyle = `${fontSize * sizeRatio}px`
+  const borderRadiusStyle = `${keyBorderRadius * sizeRatio}px`
+
+  return {
+    windowWidth: width,
+    windowHeight: height,
+
+    gap: gapStyle,
+    fontSize: fontSizeStyle,
+    borderRadius: borderRadiusStyle,
+  }
 }

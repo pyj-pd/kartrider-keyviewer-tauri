@@ -3,9 +3,11 @@ import { parseJSONFile } from "@/utils/json"
 import { KeyTemplate } from "@/types/key-templates"
 import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
-import { calculateKeyViewerWindowSize } from "@/utils/keyviewer"
-import { ref, watch } from "vue"
+import { calculateKeyViewerAbsoluteSizes } from "@/utils/keyviewer"
+import { watch, watchEffect } from "vue"
 import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
 
 /**
  * Initialize config applier so that values like key template, width, always on top get applied automatically.
@@ -13,11 +15,11 @@ import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
  */
 export const useConfigApplier = () => {
   const { keyTemplate } = storeToRefs(useKeyViewerStore())
-  const { keyTemplatePath, width, keySize, keyGap, alwaysOnTop } =
+  const { keyTemplatePath, windowSettings, styling } =
     storeToRefs(useConfigStore())
 
-  /** Gap style used for CSS styling. */
-  const gapStyle = ref<null | string>(null)
+  const sizeStore = useSizeStore()
+  const { windowWidth, windowHeight } = storeToRefs(sizeStore)
 
   // Apply key template
   watch(
@@ -31,32 +33,38 @@ export const useConfigApplier = () => {
     { immediate: true },
   )
 
-  // Apply window size
-  watch(
-    [keyTemplate, width, keySize, keyGap],
-    () => {
-      if (keyTemplate.value === null) return
+  // Calculate absolute sizes
+  watchEffect(async () => {
+    if (keyTemplate.value === null) return
 
-      const columnCount = keyTemplate.value?.gridAreas[0].split(" ").length
-      const rowCount = keyTemplate.value?.gridAreas.length
+    const columnCount = keyTemplate.value?.gridAreas[0].split(" ").length
+    const rowCount = keyTemplate.value?.gridAreas.length
 
-      const { height, gapStyle: newGapStyle } = calculateKeyViewerWindowSize({
-        width: width.value,
-        keySize: keySize.value,
-        gap: keyGap.value,
-        columnCount,
-        rowCount,
-      })
+    const width = windowSettings.value.width
+    const calculatedAbsoluteSizes = calculateKeyViewerAbsoluteSizes({
+      width,
 
-      gapStyle.value = newGapStyle
+      ...styling.value,
 
-      getCurrentWindow().setSize(new LogicalSize(width.value, height))
-    },
-    { immediate: true },
+      columnCount,
+      rowCount,
+    })
+
+    sizeStore.$patch(calculatedAbsoluteSizes)
+  })
+
+  // Apply window sizes
+  watch([windowWidth, windowHeight], () =>
+    getCurrentWebviewWindow().setSize(
+      new LogicalSize(windowWidth.value, windowHeight.value),
+    ),
   )
 
   // Apply always on top
-  watch(alwaysOnTop, () => getCurrentWindow().setAlwaysOnTop(alwaysOnTop.value))
+  watch(
+    () => windowSettings.value.alwaysOnTop,
+    () => getCurrentWindow().setAlwaysOnTop(windowSettings.value.alwaysOnTop),
+  )
 
-  return { gapStyle, keyTemplate }
+  return { keyTemplate }
 }

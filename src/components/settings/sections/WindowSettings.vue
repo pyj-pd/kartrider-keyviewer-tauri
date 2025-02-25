@@ -6,7 +6,7 @@ import {
 } from "@/utils/keyviewer"
 import { storeToRefs } from "pinia"
 
-const { alwaysOnTop, width } = storeToRefs(useConfigStore())
+const { windowSettings } = storeToRefs(useConfigStore())
 </script>
 
 <template>
@@ -15,7 +15,11 @@ const { alwaysOnTop, width } = storeToRefs(useConfigStore())
       <div class="flex flex-col gap-4">
         <Fieldset legend="창 위치">
           <div class="flex items-center gap-2 w-full">
-            <Checkbox v-model="alwaysOnTop" binary inputId="always-on-top" />
+            <Checkbox
+              v-model="windowSettings.alwaysOnTop"
+              binary
+              inputId="always-on-top"
+            />
             <label for="always-on-top">창 항상 위에 두기</label>
           </div>
         </Fieldset>
@@ -25,7 +29,7 @@ const { alwaysOnTop, width } = storeToRefs(useConfigStore())
               <InputNumber
                 id="width-input"
                 locale="en-US"
-                v-model="width"
+                v-model="windowSettings.width"
                 :min="minKeyViewerWindowWidth"
                 :max="maxKeyViewerWindowWidth"
                 suffix="px"
@@ -33,7 +37,7 @@ const { alwaysOnTop, width } = storeToRefs(useConfigStore())
               />
             </div>
             <Slider
-              v-model="width"
+              v-model="windowSettings.width"
               :step="5"
               :min="minKeyViewerWindowWidth"
               :max="maxKeyViewerWindowWidth"

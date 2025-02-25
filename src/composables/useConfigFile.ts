@@ -1,5 +1,5 @@
-import { useConfigModifiedStore, useConfigStore } from "@/stores/useConfigStore"
-import { KeyViewerConfig } from "@/types/config"
+import { useConfigStore } from "@/stores/useConfigStore"
+import { KeyViewerConfigV1 } from "@/types/config"
 import { storeToRefs } from "pinia"
 
 import { exists, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"
@@ -13,7 +13,6 @@ const configFilePath = await path.join(baseDir, "config.json")
 export const useConfigFile = () => {
   const configStore = useConfigStore()
   const configData = storeToRefs(configStore)
-  const { clearModifiedKeys } = useConfigModifiedStore()
 
   /**
    * Saves config store data to the config file.
@@ -23,9 +22,6 @@ export const useConfigFile = () => {
 
     // Write to the file
     await writeTextFile(configFilePath, configDataString)
-
-    // Clear modified keys
-    clearModifiedKeys()
 
     // Ping all windows
     await invoke("update_config", {
@@ -42,13 +38,10 @@ export const useConfigFile = () => {
       // Read file
       const rawConfigFileData = await readTextFile(configFilePath)
 
-      const configFileData = KeyViewerConfig.parse(
+      const configFileData = KeyViewerConfigV1.parse(
         JSON.parse(rawConfigFileData),
       )
       configStore.$patch(configFileData)
-
-      // Clear modified keys
-      clearModifiedKeys()
 
       return true
     } else {

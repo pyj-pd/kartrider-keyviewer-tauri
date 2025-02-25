@@ -1,5 +1,5 @@
 import type { KeyTemplate } from "@/types/key-templates"
-import type { KeyPressData } from "@/types/keyviewer"
+import type { KeyPressData } from "@/types/keyviewer/keybind"
 import { defineStore } from "pinia"
 
 /**

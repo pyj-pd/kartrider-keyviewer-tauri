@@ -4,9 +4,16 @@ import { onBeforeUnmount, onMounted } from "vue"
 import { invoke } from "@tauri-apps/api/core"
 import KeyButton from "./KeyButton/KeyButton.vue"
 import { useConfigApplier } from "@/composables/keyviewer/useConfigApplier"
+import { storeToRefs } from "pinia"
+import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
 
+/** Register global key listener */
 initGlobalKeyListener()
-const { keyTemplate, gapStyle } = useConfigApplier()
+
+/** Auto apply config */
+const { keyTemplate } = useConfigApplier()
+
+const { gap } = storeToRefs(useSizeStore())
 
 const openSettingsWindow = () => invoke("open_settings")
 
@@ -27,7 +34,7 @@ onBeforeUnmount(() => {
     v-if="keyTemplate"
     :style="{
       gridTemplate: keyTemplate.gridAreas.map((line) => `'${line}'`).join('\n'),
-      gap: gapStyle ?? undefined,
+      gap,
     }"
   >
     <KeyButton

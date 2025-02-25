@@ -9,8 +9,10 @@ import {
 import { storeToRefs } from "pinia"
 import ArrowUp from "./ArrowUp.vue"
 import type { ArrowKeyType } from "@/constants/keyviewer/arrow"
+import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
 
 const { keyPressData, keyTemplate } = storeToRefs(useKeyViewerStore())
+const { fontSize, borderRadius } = storeToRefs(useSizeStore())
 
 const props = defineProps<{
   gridArea: string
@@ -24,7 +26,7 @@ const keyType = getKeybindType(props.keybindData)
   <template v-if="keyTemplate !== null">
     <div
       :class="[
-        'flex items-center justify-center rounded-border text-[2.5vw] overflow-hidden font-bold',
+        'flex items-center justify-center  text-[2.5vw] overflow-hidden font-bold',
         keyPressData[getKeybindKeyCode(keybindData)] === 'pressed'
           ? 'bg-primary-900 text-primary-100'
           : 'bg-primary-100 text-primary-900',
@@ -32,6 +34,8 @@ const keyType = getKeybindType(props.keybindData)
       :key="gridArea"
       :style="{
         gridArea,
+        borderRadius,
+        fontSize,
       }"
     >
       <template v-if="keyType === 'arrow'">

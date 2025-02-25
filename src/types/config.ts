@@ -1,18 +1,27 @@
 import { z } from "zod"
 
-export const KeyViewerConfig = z.object({
+export const KeyViewerConfigV1 = z.object({
+  configVersion: z.literal("v1"),
+
   keyTemplatePath: z.union([z.null(), z.string()]),
 
-  alwaysOnTop: z.boolean(),
+  windowSettings: z.object({
+    alwaysOnTop: z.boolean(),
 
-  /** Absolute size */
-  width: z.number(),
-  /** Relative size */
-  keySize: z.number(),
-  /** Relative size */
-  keyGap: z.number(),
+    /** Absolute size */
+    width: z.number(),
+  }),
+
+  /** Relative sizes */
+  styling: z.object({
+    keySize: z.number(),
+    keyGap: z.number(),
+    keyBorderRadius: z.number(),
+
+    fontSize: z.number(),
+  }),
 })
 
-export type KeyViewerConfig = z.infer<typeof KeyViewerConfig>
+export type KeyViewerConfigV1 = z.infer<typeof KeyViewerConfigV1>
 
-export type KeyViewerConfigKey = keyof KeyViewerConfig
+export type KeyViewerConfigV1Key = keyof KeyViewerConfigV1

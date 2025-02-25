@@ -1,5 +1,5 @@
 import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
-import type { KeyPressData } from "@/types/keyviewer"
+import type { KeyPressData } from "@/types/keyviewer/keybind"
 import { getKeybindKeyCode } from "@/utils/keyviewer"
 import { listen } from "@tauri-apps/api/event"
 import { storeToRefs } from "pinia"

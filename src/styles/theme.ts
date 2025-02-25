@@ -1,21 +1,23 @@
 import { definePreset } from "@primeuix/themes"
-import PrimeVueTheme from "@primeuix/themes/lara"
+import PrimeVueTheme from "@primeuix/themes/aura"
 import type { PrimeVueConfiguration } from "primevue"
+
+const primaryColor = "zinc"
 
 export const MyPreset = definePreset(PrimeVueTheme, {
   semantic: {
     primary: {
-      50: "{neutral.50}",
-      100: "{neutral.100}",
-      200: "{neutral.200}",
-      300: "{neutral.300}",
-      400: "{neutral.400}",
-      500: "{neutral.500}",
-      600: "{neutral.600}",
-      700: "{neutral.700}",
-      800: "{neutral.800}",
-      900: "{neutral.900}",
-      950: "{neutral.950}",
+      50: `{${primaryColor}.50}`,
+      100: `{${primaryColor}.100}`,
+      200: `{${primaryColor}.200}`,
+      300: `{${primaryColor}.300}`,
+      400: `{${primaryColor}.400}`,
+      500: `{${primaryColor}.500}`,
+      600: `{${primaryColor}.600}`,
+      700: `{${primaryColor}.700}`,
+      800: `{${primaryColor}.800}`,
+      900: `{${primaryColor}.900}`,
+      950: `{${primaryColor}.950}`,
     },
     colorScheme: {
       light: {

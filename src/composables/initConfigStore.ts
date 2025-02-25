@@ -25,10 +25,12 @@ export const initConfigStore = () => {
 
     // Load initial config from the config file
     try {
-      await loadConfigFile()
+      if ((await loadConfigFile()) === true)
+        console.log("Config loaded successfully.")
+      else console.log("No config file found. Using default config.")
     } catch {
       console.error(
-        "Failed to load default config file. Fallback to default config.",
+        "Failed to load default config file. Looks like its structure is damaged. Fallback to default config.",
       )
     } finally {
       isConfigLoaded.value = true
