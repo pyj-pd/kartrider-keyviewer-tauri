@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ResetButton from "./ResetButton.vue"
+
 const props = defineProps<{
   name: string
 
@@ -41,12 +43,6 @@ const resetValue = () => (modelValue.value = props.defaultValue)
         class="flex-auto"
       />
     </div>
-    <Button
-      icon="pi pi-undo"
-      variant="text"
-      aria-label="초기화"
-      :disabled="modelValue === defaultValue"
-      @click="resetValue"
-    />
+    <ResetButton :disabled="modelValue === defaultValue" @reset="resetValue" />
   </div>
 </template>
