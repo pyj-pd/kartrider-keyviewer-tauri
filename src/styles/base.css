@@ -1,5 +1,6 @@
 @import "./fonts.css";
 @import "./tailwind.css";
+@import "primeicons/primeicons.css";
 
 * {
   user-select: none;
@@ -12,7 +13,6 @@ body {
   cursor: default;
 
   width: 100vw;
-  min-height: 100vh;
 
   font-family: "Pretendard", sans-serif;
   font-size: 14px;

@@ -3,11 +3,12 @@ import { defineStore } from "pinia"
 
 export const useSizeStore = defineStore("size-store", {
   state: (): AbsoluteSizeData => ({
-    windowWidth: 0,
-    windowHeight: 0,
+    windowWidth: 1,
+    windowHeight: 1,
 
     gap: "0px",
     borderRadius: "0px",
+    borderWidth: "0px",
     fontSize: "0px",
   }),
 })

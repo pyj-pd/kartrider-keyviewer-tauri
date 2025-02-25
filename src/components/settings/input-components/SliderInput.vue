@@ -1,0 +1,52 @@
+<script setup lang="ts">
+const props = defineProps<{
+  name: string
+
+  defaultValue: number
+  min: number
+  max: number
+  step?: number
+
+  prefix?: string
+  suffix?: string
+}>()
+
+const modelValue = defineModel<number>()
+
+const resetValue = () => (modelValue.value = props.defaultValue)
+</script>
+
+<template>
+  <div class="flex items-center gap-3 w-full">
+    <h3 class="block w-25 text-right">{{ name }}</h3>
+    <div class="w-20">
+      <InputNumber
+        id="width-input"
+        locale="en-US"
+        v-model="modelValue"
+        :step="step"
+        :min="min"
+        :max="max"
+        :prefix="prefix"
+        :suffix="suffix"
+        fluid
+      />
+    </div>
+    <div class="mx-3 flex-auto">
+      <Slider
+        v-model="modelValue"
+        :step="step"
+        :min="min"
+        :max="max"
+        class="flex-auto"
+      />
+    </div>
+    <Button
+      icon="pi pi-undo"
+      variant="text"
+      aria-label="초기화"
+      :disabled="modelValue === defaultValue"
+      @click="resetValue"
+    />
+  </div>
+</template>

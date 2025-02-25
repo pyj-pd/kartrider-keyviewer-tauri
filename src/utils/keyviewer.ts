@@ -37,6 +37,7 @@ export const calculateKeyViewerAbsoluteSizes = ({
   keySize,
   keyGap,
   keyBorderRadius,
+  keyBorderWidth,
   fontSize,
 
   columnCount,
@@ -62,6 +63,7 @@ export const calculateKeyViewerAbsoluteSizes = ({
   const gapStyle = `${keyGap * sizeRatio}px`
   const fontSizeStyle = `${fontSize * sizeRatio}px`
   const borderRadiusStyle = `${keyBorderRadius * sizeRatio}px`
+  const borderWidthStyle = `${keyBorderWidth * sizeRatio}px`
 
   return {
     windowWidth: width,
@@ -70,5 +72,6 @@ export const calculateKeyViewerAbsoluteSizes = ({
     gap: gapStyle,
     fontSize: fontSizeStyle,
     borderRadius: borderRadiusStyle,
+    borderWidth: borderWidthStyle,
   }
 }

@@ -27,8 +27,9 @@
         "title": "설정",
         "label": "settings",
         "url": "/#settings",
-        "width": 1000,
-        "height": 700,
+        "width": 700,
+        "height": 800,
+        "resizable": false,
         "create": false,
         "visible": false
       }

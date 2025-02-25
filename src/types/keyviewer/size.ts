@@ -7,5 +7,6 @@ export type AbsoluteSizeData = {
 
   gap: string
   borderRadius: string
+  borderWidth: string
   fontSize: string
 }

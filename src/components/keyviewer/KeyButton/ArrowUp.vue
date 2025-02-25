@@ -15,13 +15,20 @@ const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    viewBox="0 0 166 147"
+    viewBox="0 0 100 100"
     class="w-[4vw]"
-    :style="{ transform: `rotate(${arrowRotation})`, width: '1em' }"
+    :style="{
+      transform: `rotate(${arrowRotation})`,
+      width: '0.8em',
+      overflow: 'visible',
+    }"
   >
     <path
-      fill="currentColor"
-      d="M66.372 16.8C71.83 7.349 74.557 2.623 78.12 1.037a12 12 0 0 1 9.762 0C91.443 2.623 94.17 7.35 99.628 16.8l58.543 101.4c5.457 9.451 8.185 14.177 7.777 18.054a11.998 11.998 0 0 1-4.88 8.454C157.913 147 152.457 147 141.543 147H24.457c-10.914 0-16.37 0-19.524-2.292a11.999 11.999 0 0 1-4.881-8.454c-.408-3.877 2.32-8.603 7.777-18.054L66.372 16.8Z"
+      stroke="currentColor"
+      stroke-width="19"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M 50 0 L 0 50 M 50 0 L 50 100 M 50 0 L 100 50"
     />
   </svg>
 </template>

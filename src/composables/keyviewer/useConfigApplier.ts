@@ -54,16 +54,20 @@ export const useConfigApplier = () => {
   })
 
   // Apply window sizes
-  watch([windowWidth, windowHeight], () =>
-    getCurrentWebviewWindow().setSize(
-      new LogicalSize(windowWidth.value, windowHeight.value),
-    ),
+  watch(
+    [windowWidth, windowHeight],
+    () =>
+      getCurrentWebviewWindow().setSize(
+        new LogicalSize(windowWidth.value, windowHeight.value),
+      ),
+    { immediate: true },
   )
 
   // Apply always on top
   watch(
     () => windowSettings.value.alwaysOnTop,
     () => getCurrentWindow().setAlwaysOnTop(windowSettings.value.alwaysOnTop),
+    { immediate: true },
   )
 
   return { keyTemplate }

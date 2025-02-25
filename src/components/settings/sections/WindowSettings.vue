@@ -5,14 +5,17 @@ import {
   minKeyViewerWindowWidth,
 } from "@/utils/keyviewer"
 import { storeToRefs } from "pinia"
+import SliderInput from "../input-components/SliderInput.vue"
+import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
 
 const { windowSettings } = storeToRefs(useConfigStore())
+const defaultWindowSettings = defaultKeyViewerConfig.windowSettings
 </script>
 
 <template>
   <section>
     <Panel header="창 설정">
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
         <Fieldset legend="창 위치">
           <div class="flex items-center gap-2 w-full">
             <Checkbox
@@ -24,26 +27,14 @@ const { windowSettings } = storeToRefs(useConfigStore())
           </div>
         </Fieldset>
         <Fieldset legend="창 크기">
-          <div class="flex items-center gap-5 w-full">
-            <div class="w-20">
-              <InputNumber
-                id="width-input"
-                locale="en-US"
-                v-model="windowSettings.width"
-                :min="minKeyViewerWindowWidth"
-                :max="maxKeyViewerWindowWidth"
-                suffix="px"
-                fluid
-              />
-            </div>
-            <Slider
-              v-model="windowSettings.width"
-              :step="5"
-              :min="minKeyViewerWindowWidth"
-              :max="maxKeyViewerWindowWidth"
-              class="flex-auto"
-            />
-          </div>
+          <SliderInput
+            name="창 크기"
+            v-model="windowSettings.width"
+            :defaultValue="defaultWindowSettings.width"
+            :min="minKeyViewerWindowWidth"
+            :max="maxKeyViewerWindowWidth"
+            suffix="px"
+          />
         </Fieldset>
       </div>
     </Panel>

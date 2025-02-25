@@ -30,7 +30,7 @@ onBeforeUnmount(() => {
 <template>
   <main
     data-tauri-drag-region
-    class="grid auto-cols-fr auto-rows-fr w-auto h-screen *:pointer-events-none"
+    class="grid auto-cols-fr auto-rows-fr w-auto h-screen *:pointer-events-none bg-primary-900"
     v-if="keyTemplate"
     :style="{
       gridTemplate: keyTemplate.gridAreas.map((line) => `'${line}'`).join('\n'),

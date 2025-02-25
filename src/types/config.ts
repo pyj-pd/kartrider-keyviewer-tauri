@@ -1,5 +1,11 @@
 import { z } from "zod"
 
+const keyColorOption = z.object({
+  backgroundColor: z.string(),
+  textColor: z.string(),
+  borderColor: z.string(),
+})
+
 export const KeyViewerConfigV1 = z.object({
   configVersion: z.literal("v1"),
 
@@ -17,6 +23,12 @@ export const KeyViewerConfigV1 = z.object({
     keySize: z.number(),
     keyGap: z.number(),
     keyBorderRadius: z.number(),
+    keyBorderWidth: z.number(),
+
+    keyColor: z.object({
+      idle: keyColorOption,
+      pressed: keyColorOption,
+    }),
 
     fontSize: z.number(),
   }),

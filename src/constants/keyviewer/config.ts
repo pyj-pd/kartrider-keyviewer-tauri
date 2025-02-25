@@ -13,8 +13,22 @@ export const defaultKeyViewerConfig = {
   styling: {
     keySize: 10 as number,
     keyGap: 1 as number,
-    keyBorderRadius: 0.8 as number,
+    keyBorderRadius: 0.3 as number,
+    keyBorderWidth: 0 as number,
 
-    fontSize: 1.5 as number,
+    keyColor: {
+      idle: {
+        backgroundColor: "#ffffff",
+        textColor: "#0c1236",
+        borderColor: "#0c1236",
+      },
+      pressed: {
+        backgroundColor: "#00d7f8",
+        textColor: "#0c1236",
+        borderColor: "#0c1236",
+      },
+    },
+
+    fontSize: 1.6 as number,
   },
 } as const satisfies KeyViewerConfigV1

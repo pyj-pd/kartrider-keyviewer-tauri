@@ -55,6 +55,6 @@ export const MyPreset = definePreset(PrimeVueTheme, {
 export const theme: PrimeVueConfiguration["theme"] = {
   preset: MyPreset,
   options: {
-    darkModeSelector: ".dark-mode",
+    // darkModeSelector: ".dark-mode",
   },
 }
