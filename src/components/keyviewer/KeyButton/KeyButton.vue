@@ -26,6 +26,8 @@ const keyType = getKeybindType(props.keybindData)
 const isKeyPressed = computed(
   () => keyPressData.value[getKeybindKeyCode(props.keybindData)] === "pressed",
 )
+
+console.log(styling.value)
 </script>
 
 <template>

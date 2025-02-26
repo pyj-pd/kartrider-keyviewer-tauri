@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { useConfigStore } from "@/stores/useConfigStore"
-import {
-  maxKeyViewerWindowWidth,
-  minKeyViewerWindowWidth,
-} from "@/utils/keyviewer"
 import { storeToRefs } from "pinia"
 import SliderInput from "../input-components/SliderInput.vue"
 import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
@@ -31,8 +27,8 @@ const defaultWindowSettings = defaultKeyViewerConfig.windowSettings
             name="창 크기"
             v-model="windowSettings.width"
             :defaultValue="defaultWindowSettings.width"
-            :min="minKeyViewerWindowWidth"
-            :max="maxKeyViewerWindowWidth"
+            :min="100"
+            :max="2000"
             suffix="px"
           />
         </Fieldset>

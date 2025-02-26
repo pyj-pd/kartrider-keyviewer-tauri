@@ -2,6 +2,7 @@ import type { KeyViewerConfigV1 } from "@/types/config"
 import type { KeybindData } from "@/types/key-templates"
 import { keybindTypeRegex, type KeybindType } from "@/types/keyviewer/keybind"
 import type { AbsoluteSizeData } from "@/types/keyviewer/size"
+import type { PxUnit } from "@/types/unit"
 
 // Keybinds
 export const getKeybindLabel = (keybindData: KeybindData) =>
@@ -23,9 +24,6 @@ export const getKeybindType = (keybindData: KeybindData): KeybindType => {
 }
 
 // Window
-export const minKeyViewerWindowWidth = 100
-export const maxKeyViewerWindowWidth = 2000
-
 /**
  * Calculates absolute sizes from relative sizes in config file.
  * @param relativeSizes Relative sizes that are defined in config file.
@@ -60,10 +58,10 @@ export const calculateKeyViewerAbsoluteSizes = ({
 
   const height = relativeHeight * sizeRatio
 
-  const gapStyle = `${keyGap * sizeRatio}px`
-  const fontSizeStyle = `${fontSize * sizeRatio}px`
-  const borderRadiusStyle = `${keyBorderRadius * sizeRatio}px`
-  const borderWidthStyle = `${keyBorderWidth * sizeRatio}px`
+  const gapStyle: PxUnit = `${keyGap * sizeRatio}px`
+  const fontSizeStyle: PxUnit = `${fontSize * sizeRatio}px`
+  const borderRadiusStyle: PxUnit = `${keyBorderRadius * sizeRatio}px`
+  const borderWidthStyle: PxUnit = `${keyBorderWidth * sizeRatio}px`
 
   return {
     windowWidth: width,

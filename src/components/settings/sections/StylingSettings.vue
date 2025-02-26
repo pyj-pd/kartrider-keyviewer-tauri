@@ -6,6 +6,8 @@ import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
 
 const { styling } = storeToRefs(useConfigStore())
 const defaultStyling = defaultKeyViewerConfig.styling
+
+const roundNumber = (value: number) => Math.floor(value * 10) / 10
 </script>
 
 <template>
@@ -19,7 +21,7 @@ const defaultStyling = defaultKeyViewerConfig.styling
             :defaultValue="defaultStyling.keyGap"
             :step="0.1"
             :min="0"
-            :max="styling.keySize / 2"
+            :max="roundNumber(styling.keySize / 2)"
           />
           <SliderInput
             name="모서리 둥글기"
@@ -27,15 +29,15 @@ const defaultStyling = defaultKeyViewerConfig.styling
             :defaultValue="defaultStyling.keyBorderRadius"
             :step="0.1"
             :min="0"
-            :max="styling.keySize / 3"
+            :max="roundNumber(styling.keySize / 3)"
           />
           <SliderInput
-            name="테두리 두께"
+            name="윤곽선 두께"
             v-model="styling.keyBorderWidth"
             :defaultValue="defaultStyling.keyBorderWidth"
             :step="0.1"
             :min="0"
-            :max="styling.keySize / 8"
+            :max="roundNumber(styling.keySize / 8)"
           />
         </div>
       </Fieldset>
@@ -47,7 +49,7 @@ const defaultStyling = defaultKeyViewerConfig.styling
             :defaultValue="defaultStyling.fontSize"
             :step="0.1"
             :min="0.1"
-            :max="styling.keySize / 3"
+            :max="roundNumber(styling.keySize / 3)"
           />
         </div>
       </Fieldset>

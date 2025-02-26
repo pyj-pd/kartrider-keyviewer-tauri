@@ -1,10 +1,13 @@
 import { z } from "zod"
+import { ColorHex } from "./unit"
 
-const keyColorOption = z.object({
-  backgroundColor: z.string(),
-  textColor: z.string(),
-  borderColor: z.string(),
+export const keyColorOption = z.object({
+  backgroundColor: ColorHex,
+  textColor: ColorHex,
+  borderColor: ColorHex,
 })
+
+export type KeyColorOption = z.infer<typeof keyColorOption>
 
 export const KeyViewerConfigV1 = z.object({
   configVersion: z.literal("v1"),
