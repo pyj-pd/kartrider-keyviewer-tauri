@@ -2,13 +2,16 @@ import { exists, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"
 import { invoke } from "@tauri-apps/api/core"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import type { ZodType } from "zod"
+import { path } from "@tauri-apps/api"
+import { baseDir } from "@/constants/path"
 
 /**
  * Handler for saving, loading files.
  *
  * Mostly used internally.
  * - Use `useConfigFile` for handling config file.
- * @param filePath Path of file
+ * - Use `useKeyTemplateFile` for handling key template file.
+ * @param filePath Path of file. Should be resolved in order to be handled correctly.
  * @param zodValidator Zod validator for parsing the file
  * @returns Functions for saving, loading the file
  */
@@ -23,10 +26,11 @@ export const useFileHandler = <FileType>(
   const saveDataToFile = async (data: FileType) => {
     if (filePath === null) throw new Error("No config file path passed.")
 
+    const resolvedFilePath = await path.join(baseDir, filePath)
     const configDataString = JSON.stringify(data, undefined, 2)
 
     // Write to the file
-    await writeTextFile(filePath, configDataString)
+    await writeTextFile(resolvedFilePath, configDataString)
 
     // Ping all windows
     await invoke("update_config", {
@@ -41,9 +45,10 @@ export const useFileHandler = <FileType>(
   const getFileData = async (): Promise<FileType | null> => {
     if (filePath === null) throw new Error("No config file path passed.")
 
+    const resolvedFilePath = await path.join(baseDir, filePath)
     if (await exists(filePath)) {
       // Read file
-      const rawFileData = await readTextFile(filePath)
+      const rawFileData = await readTextFile(resolvedFilePath)
 
       const data = zodValidator.parse(JSON.parse(rawFileData))
 
