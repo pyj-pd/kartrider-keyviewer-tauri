@@ -1,8 +1,7 @@
 [package]
-name = "kartrider-keyviewer"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+name = "kartrider-keyviewer-tauri"
+version = "1.0.0-beta"
+authors = ["pyj-pd"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

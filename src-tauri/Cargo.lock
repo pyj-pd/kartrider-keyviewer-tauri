@@ -1999,8 +1999,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "kartrider-keyviewer"
-version = "0.1.0"
+name = "kartrider-keyviewer-tauri"
+version = "1.0.0-beta"
 dependencies = [
  "rdev",
  "serde",
