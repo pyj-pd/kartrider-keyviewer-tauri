@@ -1,14 +1,10 @@
 import { z } from "zod"
 import { ColorHex } from "./unit"
 
-export const KeybindData = z.union([
-  /* Keycode */ z.string(),
-  /* More config */
-  z.object({
-    keyCode: z.string(),
-    customLabel: z.optional(z.string()),
-  }),
-])
+export const KeybindData = z.object({
+  keyCode: z.string(),
+  customLabel: z.optional(z.string()),
+})
 
 export type KeybindData = z.infer<typeof KeybindData>
 

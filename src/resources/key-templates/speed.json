@@ -8,10 +8,10 @@
       "keyCode": "ControlLeft",
       "customLabel": "Ctrl"
     },
-    "c": "UpArrow",
-    "d": "LeftArrow",
-    "e": "DownArrow",
-    "f": "RightArrow"
+    "c": { "keyCode": "UpArrow" },
+    "d": { "keyCode": "LeftArrow" },
+    "e": { "keyCode": "DownArrow" },
+    "f": { "keyCode": "RightArrow" }
   },
   "gridAreas": ["a a . c .", "b b d e f"],
   "styling": {

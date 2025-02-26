@@ -4,19 +4,22 @@ import type { AbsoluteSizeData } from "@/types/keyviewer/size"
 import type { PxUnit } from "@/types/unit"
 
 // Keybinds
-export const getKeybindLabel = (keybindData: KeybindData) =>
-  typeof keybindData === "string"
-    ? keybindData
-    : (keybindData.customLabel ?? keybindData.keyCode)
-
-export const getKeybindKeyCode = (keybindData: KeybindData) =>
-  typeof keybindData === "string" ? keybindData : keybindData.keyCode
+export const getKeybindLabel = (
+  keybindData: KeybindData,
+  fallbackToKeyCode: boolean = true,
+) =>
+  typeof keybindData.customLabel === "string" &&
+  keybindData.customLabel.length > 0
+    ? keybindData.customLabel
+    : fallbackToKeyCode
+      ? keybindData.keyCode
+      : null
 
 export const getKeybindType = (keybindData: KeybindData): KeybindType => {
-  const keycode = getKeybindKeyCode(keybindData)
+  const { keyCode } = keybindData
 
   for (const [keyType, regExp] of Object.entries(keybindTypeRegex)) {
-    if (regExp.test(keycode)) return keyType as KeybindType
+    if (regExp.test(keyCode)) return keyType as KeybindType
   }
 
   return "other-keys"

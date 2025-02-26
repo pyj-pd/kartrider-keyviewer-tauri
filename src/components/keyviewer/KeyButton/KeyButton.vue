@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 import type { KeybindData } from "@/types/key-templates"
-import {
-  getKeybindKeyCode,
-  getKeybindLabel,
-  getKeybindType,
-} from "@/utils/keyviewer"
+import { getKeybindLabel, getKeybindType } from "@/utils/keyviewer"
 import { storeToRefs } from "pinia"
 import ArrowUp from "./ArrowUp.vue"
 import type { ArrowKeyType } from "@/constants/keyviewer/arrow"
@@ -22,7 +18,7 @@ const props = defineProps<{
 
 const keyType = getKeybindType(props.keybindData)
 const isKeyPressed = computed(
-  () => keyPressData.value[getKeybindKeyCode(props.keybindData)] === "pressed",
+  () => keyPressData.value[props.keybindData.keyCode] === "pressed",
 )
 </script>
 
@@ -48,8 +44,12 @@ const isKeyPressed = computed(
           : keyTemplate.styling.keyColor.idle.borderColor,
       }"
     >
-      <template v-if="keyType === 'arrow'">
-        <ArrowUp :keycode="getKeybindKeyCode(keybindData) as ArrowKeyType" />
+      <template
+        v-if="
+          keyType === 'arrow' && getKeybindLabel(keybindData, false) === null
+        "
+      >
+        <ArrowUp :keycode="keybindData.keyCode as ArrowKeyType" />
       </template>
       <template v-else>
         {{ getKeybindLabel(keybindData) }}

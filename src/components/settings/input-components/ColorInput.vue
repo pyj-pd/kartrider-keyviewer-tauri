@@ -8,7 +8,7 @@ const props = defineProps<{
   defaultValue: ColorHex
 }>()
 
-const modelValue = defineModel<ColorHex>()
+const modelValue = defineModel<ColorHex>({ required: true })
 
 const hexCodeWithoutHashSign = computed({
   get: () => modelValue.value?.substring(1),

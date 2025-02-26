@@ -13,7 +13,7 @@ const props = defineProps<{
   suffix?: string
 }>()
 
-const modelValue = defineModel<number>()
+const modelValue = defineModel<number>({ required: true })
 
 const resetValue = () => (modelValue.value = props.defaultValue)
 </script>
@@ -37,10 +37,6 @@ const resetValue = () => (modelValue.value = props.defaultValue)
     <div class="px-3 flex-1">
       <Slider v-model="modelValue" :step="step" :min="min" :max="max" fluid />
     </div>
-    <ResetButton
-      v-if="defaultValue"
-      :disabled="modelValue === defaultValue"
-      @reset="resetValue"
-    />
+    <ResetButton :disabled="modelValue === defaultValue" @reset="resetValue" />
   </div>
 </template>

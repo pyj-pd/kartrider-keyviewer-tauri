@@ -1,6 +1,5 @@
 import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 import type { KeyPressData } from "@/types/keyviewer/keybind"
-import { getKeybindKeyCode } from "@/utils/keyviewer"
 import { listen } from "@tauri-apps/api/event"
 import { storeToRefs } from "pinia"
 import { onMounted, ref, watch } from "vue"
@@ -40,7 +39,7 @@ export const initGlobalKeyListener = () => {
       for (const [_, keybindData] of Object.entries(
         keyTemplate.value.keybinds,
       )) {
-        newDetectingKeys.push(getKeybindKeyCode(keybindData))
+        newDetectingKeys.push(keybindData.keyCode)
       }
 
       detectingKeys.value = newDetectingKeys
