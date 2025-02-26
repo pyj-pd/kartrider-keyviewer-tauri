@@ -4,7 +4,7 @@ import ResetButton from "./ResetButton.vue"
 const props = defineProps<{
   name: string
 
-  defaultValue?: number
+  defaultValue: number
   min: number
   max: number
   step?: number

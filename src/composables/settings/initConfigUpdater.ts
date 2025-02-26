@@ -18,5 +18,5 @@ export const initConfigUpdater = () => {
 
   configStore.$subscribe(() => saveConfigAsFile())
 
-  watch(keyTemplate, () => saveKeyTemplateAsFile())
+  watch(keyTemplate, () => saveKeyTemplateAsFile(), { deep: true })
 }

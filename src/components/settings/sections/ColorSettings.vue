@@ -3,6 +3,7 @@ import { storeToRefs } from "pinia"
 import ColorInput from "../input-components/ColorInput.vue"
 import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 import type { KeyColorOption, KeyTemplate } from "@/types/key-templates"
+import { defaultKeyStyling } from "@/constants/key-template"
 
 const { keyTemplate } = storeToRefs(useKeyViewerStore())
 
@@ -17,8 +18,6 @@ const colorTypeName: {
   textColor: "글자 색",
   borderColor: "윤곽선 색",
 }
-
-// @todo add reset to default
 </script>
 
 <template>
@@ -36,6 +35,7 @@ const colorTypeName: {
             >
               <ColorInput
                 :name="colorTypeName[colorType]"
+                :defaultValue="defaultKeyStyling.keyColor[category][colorType]"
                 v-model="keyTemplate.styling.keyColor[category][colorType]"
               />
             </template>

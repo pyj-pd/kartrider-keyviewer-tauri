@@ -26,6 +26,7 @@ export const initConfigStore = () => {
   watch(
     keyTemplatePath,
     async () => {
+      // @todo add error listener
       await loadKeyTemplateFile()
     },
     { immediate: true },
@@ -38,6 +39,7 @@ export const initConfigStore = () => {
     configUpdateListener = await listen<string>(
       "config-updated",
       async (event) => {
+        // @todo add error listener
         if (currentWindow.label !== event.payload) await loadConfigFile() // Reload config upon change
       },
     )
@@ -62,6 +64,9 @@ export const initConfigStore = () => {
     } finally {
       isConfigLoaded.value = true
     }
+
+    // Loading key template initially will be automatic and doesn't need to be specified here.
+    // When `keyTemplatePath` changes in config store, it will be automatically reloaded.
   })
 
   onBeforeUnmount(() => {

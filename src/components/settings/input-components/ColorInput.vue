@@ -5,7 +5,7 @@ import { computed, ref, watch } from "vue"
 const props = defineProps<{
   name: string
 
-  defaultValue?: ColorHex
+  defaultValue: ColorHex
 }>()
 
 const modelValue = defineModel<ColorHex>()

@@ -46,7 +46,7 @@ export const useFileHandler = <FileType>(
     if (filePath === null) throw new Error("No config file path passed.")
 
     const resolvedFilePath = await path.join(baseDir, filePath)
-    if (await exists(filePath)) {
+    if (await exists(resolvedFilePath)) {
       // Read file
       const rawFileData = await readTextFile(resolvedFilePath)
 
