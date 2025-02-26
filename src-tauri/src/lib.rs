@@ -32,6 +32,7 @@ pub fn run() {
             commands::set_keyviewer_always_on_top,
             commands::set_keyviewer_window_size,
             commands::update_config,
+            commands::update_template,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

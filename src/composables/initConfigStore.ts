@@ -1,16 +1,35 @@
-import { onBeforeUnmount, onMounted, ref } from "vue"
-import { useConfigFile } from "./useConfigFile"
+import { onBeforeUnmount, onMounted, ref, watch } from "vue"
 import { listen, type UnlistenFn } from "@tauri-apps/api/event"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { useConfigFile } from "./useConfigFile"
+import { useKeyTemplateFile } from "./useKeyTemplateFile"
+import { useConfigStore } from "@/stores/useConfigStore"
+import { storeToRefs } from "pinia"
 
 /**
- * Initialize config store by loading config file data for the first time. Should only be used on `App` components once.
+ * Initialize config store by loading config file and key template data for the first time.
+ * Should only be used on `App` components once.
  */
 export const initConfigStore = () => {
+  // Config
   const isConfigLoaded = ref<boolean>(false)
   const { loadConfigFile } = useConfigFile()
 
+  // Key template
+  const { keyTemplatePath } = storeToRefs(useConfigStore())
+  const { loadKeyTemplateFile } = useKeyTemplateFile()
+
   let configUpdateListener: UnlistenFn
+  let keyTemplateUpdateListener: UnlistenFn
+
+  // Apply key template if path changes
+  watch(
+    keyTemplatePath,
+    async () => {
+      await loadKeyTemplateFile()
+    },
+    { immediate: true },
+  )
 
   onMounted(async () => {
     // Listen to config update
@@ -20,6 +39,14 @@ export const initConfigStore = () => {
       "config-updated",
       async (event) => {
         if (currentWindow.label !== event.payload) await loadConfigFile() // Reload config upon change
+      },
+    )
+
+    // Listen to key template update
+    keyTemplateUpdateListener = await listen<string>(
+      "template-updated",
+      async (event) => {
+        if (currentWindow.label !== event.payload) await loadKeyTemplateFile() // Reload key template upon change
       },
     )
 
@@ -38,7 +65,9 @@ export const initConfigStore = () => {
   })
 
   onBeforeUnmount(() => {
-    configUpdateListener() // Unlisten config update listener
+    // Unlisten update listeners
+    configUpdateListener()
+    keyTemplateUpdateListener()
   })
 
   return { isConfigLoaded }

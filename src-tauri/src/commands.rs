@@ -39,3 +39,8 @@ pub async fn set_keyviewer_window_size(app: tauri::AppHandle, width: f64, height
 pub fn update_config(app: tauri::AppHandle, from: String) {
     app.emit("config-updated", from).unwrap();
 }
+
+#[tauri::command]
+pub fn update_template(app: tauri::AppHandle, from: String) {
+    app.emit("template-updated", from).unwrap();
+}

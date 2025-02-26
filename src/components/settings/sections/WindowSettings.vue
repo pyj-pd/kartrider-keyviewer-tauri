@@ -2,7 +2,7 @@
 import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
 import SliderInput from "../input-components/SliderInput.vue"
-import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
+import { defaultKeyViewerConfig } from "@/constants/config"
 
 const { windowSettings } = storeToRefs(useConfigStore())
 const defaultWindowSettings = defaultKeyViewerConfig.windowSettings

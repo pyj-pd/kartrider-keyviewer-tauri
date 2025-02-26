@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
 import ColorInput from "../input-components/ColorInput.vue"
-import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
-import type { KeyColorOption, KeyViewerConfigV1 } from "@/types/config"
+import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import type { KeyColorOption, KeyTemplate } from "@/types/key-templates"
 
-const { styling } = storeToRefs(useConfigStore())
-const defaultColorConfig = defaultKeyViewerConfig.styling.keyColor
+const { keyTemplate } = storeToRefs(useKeyViewerStore())
 
 const colorCategoryName: {
-  [key in keyof KeyViewerConfigV1["styling"]["keyColor"]]: string
+  [key in keyof KeyTemplate["styling"]["keyColor"]]: string
 } = { idle: "일반 상태", pressed: "눌린 상태" }
 
 const colorTypeName: {
@@ -19,13 +17,15 @@ const colorTypeName: {
   textColor: "글자 색",
   borderColor: "윤곽선 색",
 }
+
+// @todo add reset to default
 </script>
 
 <template>
-  <section>
+  <section v-if="keyTemplate !== null">
     <Panel header="키 색 설정">
       <template
-        v-for="(colorData, category) in styling.keyColor"
+        v-for="(colorData, category) in keyTemplate.styling.keyColor"
         :key="category"
       >
         <Fieldset :legend="colorCategoryName[category]">
@@ -36,8 +36,7 @@ const colorTypeName: {
             >
               <ColorInput
                 :name="colorTypeName[colorType]"
-                v-model="styling.keyColor[category][colorType]"
-                :defaultValue="defaultColorConfig[category][colorType]"
+                v-model="keyTemplate.styling.keyColor[category][colorType]"
               />
             </template>
           </div>

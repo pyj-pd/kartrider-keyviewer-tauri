@@ -1,6 +1,4 @@
 import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window"
-import { parseJSONFile } from "@/utils/json"
-import { KeyTemplate } from "@/types/key-templates"
 import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
 import { calculateKeyViewerAbsoluteSizes } from "@/utils/keyviewer"
@@ -15,23 +13,10 @@ import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
  */
 export const useConfigApplier = () => {
   const { keyTemplate } = storeToRefs(useKeyViewerStore())
-  const { keyTemplatePath, windowSettings, styling } =
-    storeToRefs(useConfigStore())
+  const { windowSettings } = storeToRefs(useConfigStore())
 
   const sizeStore = useSizeStore()
   const { windowWidth, windowHeight } = storeToRefs(sizeStore)
-
-  // Apply key template
-  watch(
-    keyTemplatePath,
-    () => {
-      if (keyTemplatePath.value !== null)
-        parseJSONFile(keyTemplatePath.value, KeyTemplate).then(
-          (data) => (keyTemplate.value = data),
-        )
-    },
-    { immediate: true },
-  )
 
   // Calculate absolute sizes
   watchEffect(async () => {
@@ -44,7 +29,7 @@ export const useConfigApplier = () => {
     const calculatedAbsoluteSizes = calculateKeyViewerAbsoluteSizes({
       width,
 
-      ...styling.value,
+      ...keyTemplate.value.styling,
 
       columnCount,
       rowCount,

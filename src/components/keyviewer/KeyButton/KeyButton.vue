@@ -10,12 +10,10 @@ import { storeToRefs } from "pinia"
 import ArrowUp from "./ArrowUp.vue"
 import type { ArrowKeyType } from "@/constants/keyviewer/arrow"
 import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
-import { useConfigStore } from "@/stores/useConfigStore"
 import { computed } from "vue"
 
 const { keyPressData, keyTemplate } = storeToRefs(useKeyViewerStore())
 const { fontSize, borderRadius, borderWidth } = storeToRefs(useSizeStore())
-const { styling } = storeToRefs(useConfigStore())
 
 const props = defineProps<{
   gridArea: string
@@ -26,8 +24,6 @@ const keyType = getKeybindType(props.keybindData)
 const isKeyPressed = computed(
   () => keyPressData.value[getKeybindKeyCode(props.keybindData)] === "pressed",
 )
-
-console.log(styling.value)
 </script>
 
 <template>
@@ -42,14 +38,14 @@ console.log(styling.value)
         fontSize,
 
         backgroundColor: isKeyPressed
-          ? styling.keyColor.pressed.backgroundColor
-          : styling.keyColor.idle.backgroundColor,
+          ? keyTemplate.styling.keyColor.pressed.backgroundColor
+          : keyTemplate.styling.keyColor.idle.backgroundColor,
         color: isKeyPressed
-          ? styling.keyColor.pressed.textColor
-          : styling.keyColor.idle.textColor,
+          ? keyTemplate.styling.keyColor.pressed.textColor
+          : keyTemplate.styling.keyColor.idle.textColor,
         borderColor: isKeyPressed
-          ? styling.keyColor.pressed.borderColor
-          : styling.keyColor.idle.borderColor,
+          ? keyTemplate.styling.keyColor.pressed.borderColor
+          : keyTemplate.styling.keyColor.idle.borderColor,
       }"
     >
       <template v-if="keyType === 'arrow'">

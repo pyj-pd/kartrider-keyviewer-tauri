@@ -4,7 +4,7 @@ import ResetButton from "./ResetButton.vue"
 const props = defineProps<{
   name: string
 
-  defaultValue: number
+  defaultValue?: number
   min: number
   max: number
   step?: number
@@ -37,6 +37,10 @@ const resetValue = () => (modelValue.value = props.defaultValue)
     <div class="px-3 flex-1">
       <Slider v-model="modelValue" :step="step" :min="min" :max="max" fluid />
     </div>
-    <ResetButton :disabled="modelValue === defaultValue" @reset="resetValue" />
+    <ResetButton
+      v-if="defaultValue"
+      :disabled="modelValue === defaultValue"
+      @reset="resetValue"
+    />
   </div>
 </template>

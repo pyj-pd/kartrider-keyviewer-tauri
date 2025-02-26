@@ -1,43 +1,38 @@
 <script setup lang="ts">
-import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
 import SliderInput from "../input-components/SliderInput.vue"
-import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
+import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 
-const { styling } = storeToRefs(useConfigStore())
-const defaultStyling = defaultKeyViewerConfig.styling
+const { keyTemplate } = storeToRefs(useKeyViewerStore())
 
 const roundNumber = (value: number) => Math.floor(value * 10) / 10
 </script>
 
 <template>
-  <section>
+  <section v-if="keyTemplate !== null">
     <Panel header="스타일 설정">
       <Fieldset legend="키"
         ><div className="flex flex-col gap-2">
           <SliderInput
             name="키간 간격"
-            v-model="styling.keyGap"
-            :defaultValue="defaultStyling.keyGap"
+            v-model="keyTemplate.styling.keyGap"
             :step="0.1"
             :min="0"
-            :max="roundNumber(styling.keySize / 2)"
+            :max="roundNumber(keyTemplate.styling.keySize / 2)"
           />
           <SliderInput
             name="모서리 둥글기"
-            v-model="styling.keyBorderRadius"
-            :defaultValue="defaultStyling.keyBorderRadius"
+            v-model="keyTemplate.styling.keyBorderRadius"
             :step="0.1"
             :min="0"
-            :max="roundNumber(styling.keySize / 3)"
+            :max="roundNumber(keyTemplate.styling.keySize / 3)"
           />
           <SliderInput
             name="윤곽선 두께"
-            v-model="styling.keyBorderWidth"
-            :defaultValue="defaultStyling.keyBorderWidth"
+            v-model="keyTemplate.styling.keyBorderWidth"
             :step="0.1"
             :min="0"
-            :max="roundNumber(styling.keySize / 8)"
+            :max="roundNumber(keyTemplate.styling.keySize / 8)"
           />
         </div>
       </Fieldset>
@@ -45,11 +40,10 @@ const roundNumber = (value: number) => Math.floor(value * 10) / 10
         <div className="flex flex-col gap-2">
           <SliderInput
             name="폰트 크기"
-            v-model="styling.fontSize"
-            :defaultValue="defaultStyling.fontSize"
+            v-model="keyTemplate.styling.fontSize"
             :step="0.1"
             :min="0.1"
-            :max="roundNumber(styling.keySize / 3)"
+            :max="roundNumber(keyTemplate.styling.keySize / 3)"
           />
         </div>
       </Fieldset>

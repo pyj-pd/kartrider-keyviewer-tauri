@@ -5,7 +5,7 @@ import { computed, ref, watch } from "vue"
 const props = defineProps<{
   name: string
 
-  defaultValue: ColorHex
+  defaultValue?: ColorHex
 }>()
 
 const modelValue = defineModel<ColorHex>()
@@ -55,6 +55,10 @@ const validateColorInput = (event: Event) => {
         fluid
       />
     </div>
-    <ResetButton :disabled="modelValue === defaultValue" @reset="resetValue" />
+    <ResetButton
+      v-if="defaultValue"
+      :disabled="modelValue === defaultValue"
+      @reset="resetValue"
+    />
   </div>
 </template>

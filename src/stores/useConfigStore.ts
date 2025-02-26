@@ -1,4 +1,4 @@
-import { defaultKeyViewerConfig } from "@/constants/keyviewer/config"
+import { defaultKeyViewerConfig } from "@/constants/config"
 import type { KeyViewerConfigV1 } from "@/types/config"
 import { defineStore } from "pinia"
 
