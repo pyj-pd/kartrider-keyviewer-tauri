@@ -41,6 +41,7 @@ export const useFileHandler = <FileType>(
   /**
    * Reads file and returns data of the file.
    * @returns Data of the file if the file exists, otherwise `null`.
+   * @throws Error if validation failed.
    */
   const getFileData = async (): Promise<FileType | null> => {
     if (filePath === null) throw new Error("No config file path passed.")

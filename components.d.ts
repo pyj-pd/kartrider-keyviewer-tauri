@@ -26,6 +26,7 @@ declare module 'vue' {
     KeyViewerWebview: typeof import('./src/components/keyviewer/KeyViewerWebview.vue')['default']
     Message: typeof import('primevue/message')['default']
     Panel: typeof import('primevue/panel')['default']
+    ProgramDescription: typeof import('./src/components/settings/sections/ProgramDescription.vue')['default']
     ResetButton: typeof import('./src/components/settings/input-components/ResetButton.vue')['default']
     SettingsWebview: typeof import('./src/components/settings/SettingsWebview.vue')['default']
     Slider: typeof import('primevue/slider')['default']

@@ -23,14 +23,9 @@ export const initConfigStore = () => {
   let keyTemplateUpdateListener: UnlistenFn
 
   // Apply key template if path changes
-  watch(
-    keyTemplatePath,
-    async () => {
-      // @todo add error listener
-      await loadKeyTemplateFile()
-    },
-    { immediate: true },
-  )
+  watch(keyTemplatePath, async () => loadKeyTemplateFile(), {
+    immediate: true,
+  })
 
   onMounted(async () => {
     // Listen to config update
@@ -39,8 +34,8 @@ export const initConfigStore = () => {
     configUpdateListener = await listen<string>(
       "config-updated",
       async (event) => {
-        // @todo add error listener
-        if (currentWindow.label !== event.payload) await loadConfigFile() // Reload config upon change
+        // Reload config upon change
+        if (currentWindow.label !== event.payload) await loadConfigFile()
       },
     )
 
@@ -48,22 +43,15 @@ export const initConfigStore = () => {
     keyTemplateUpdateListener = await listen<string>(
       "template-updated",
       async (event) => {
-        if (currentWindow.label !== event.payload) await loadKeyTemplateFile() // Reload key template upon change
+        if (currentWindow.label !== event.payload)
+          // Reload key template upon change
+          await loadKeyTemplateFile()
       },
     )
 
     // Load initial config from the config file
-    try {
-      if ((await loadConfigFile()) === true)
-        console.log("Config loaded successfully.")
-      else console.log("No config file found. Using default config.")
-    } catch {
-      console.error(
-        "Failed to load default config file. Looks like its structure is damaged. Fallback to default config.",
-      )
-    } finally {
-      isConfigLoaded.value = true
-    }
+    await loadConfigFile()
+    isConfigLoaded.value = true
 
     // Loading key template initially will be automatic and doesn't need to be specified here.
     // When `keyTemplatePath` changes in config store, it will be automatically reloaded.

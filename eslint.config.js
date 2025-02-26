@@ -1,10 +1,11 @@
+// @ts-check
+
 import globals from "globals"
 import pluginJs from "@eslint/js"
 import tseslint from "typescript-eslint"
 import pluginVue from "eslint-plugin-vue"
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
+export default tseslint.config(
   {
     files: ["**/*.{js,mjs,cjs,ts,vue}"],
   },
@@ -23,6 +24,10 @@ export default [
   ...pluginVue.configs["flat/essential"],
   {
     files: ["**/*.vue"],
-    languageOptions: { parserOptions: { parser: tseslint.parser } },
+    languageOptions: {
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
   },
-]
+)

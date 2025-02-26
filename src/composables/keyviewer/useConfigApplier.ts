@@ -3,7 +3,7 @@ import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
 import { calculateKeyViewerAbsoluteSizes } from "@/utils/keyviewer"
 import { watch, watchEffect } from "vue"
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
 
@@ -12,7 +12,7 @@ import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
  * Should only be used on `KeyViewerWebview` components once.
  */
 export const useConfigApplier = () => {
-  const { keyTemplate } = storeToRefs(useKeyViewerStore())
+  const { keyTemplate } = storeToRefs(useKeyTemplateStore())
   const { windowSettings } = storeToRefs(useConfigStore())
 
   const sizeStore = useSizeStore()

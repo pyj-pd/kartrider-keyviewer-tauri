@@ -4,6 +4,7 @@ import { useConfigStore } from "@/stores/useConfigStore"
 import { KeyViewerConfigV1 } from "@/types/config"
 import { invoke } from "@tauri-apps/api/core"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { logMessages } from "@/constants/log-messages"
 
 /**
  * Handler for handling config files.
@@ -18,15 +19,21 @@ export const useConfigFile = () => {
 
   /**
    * Loads config file and mutate the config store.
-   * @returns `true` if successfully read the file, `false` if no config file exists.
    */
   const loadConfigFile = async () => {
-    const configFileData = await getFileData()
+    try {
+      const configFileData = await getFileData()
 
-    if (configFileData === null) return false // No config file
+      if (configFileData === null) {
+        // No config file
+        console.log(logMessages.config.noFileFallbackDefault)
+        return
+      }
 
-    configStore.$patch(configFileData)
-    return true
+      configStore.$patch(configFileData)
+    } catch {
+      console.error(logMessages.config.failedToLoad)
+    }
   }
 
   /**

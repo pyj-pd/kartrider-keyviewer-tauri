@@ -47,14 +47,13 @@ const onKeyPress = (event: KeyboardEvent) => {
 
 <template>
   <Button
-    class="flex-1"
     @click="onClick"
     @keydown="onKeyPress"
     @blur="isKeyListening = false"
     severity="secondary"
     fluid
     >{{
-      isKeyListening ? "듣는 중... 눌러서 취소" : modelValue.keyCode
+      isKeyListening ? "입력 대기 중... 클릭해서 취소" : modelValue.keyCode
     }}</Button
   >
   <!-- Modal -->

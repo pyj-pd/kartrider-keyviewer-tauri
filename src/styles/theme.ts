@@ -3,6 +3,7 @@ import PrimeVueTheme from "@primeuix/themes/aura"
 import type { PrimeVueConfiguration } from "primevue"
 
 const primaryColor = "zinc"
+const secondaryColor = "emerald"
 
 export const MyPreset = definePreset(PrimeVueTheme, {
   semantic: {
@@ -19,6 +20,19 @@ export const MyPreset = definePreset(PrimeVueTheme, {
       900: `{${primaryColor}.900}`,
       950: `{${primaryColor}.950}`,
     },
+    secondary: {
+      50: `{${secondaryColor}.50}`,
+      100: `{${secondaryColor}.100}`,
+      200: `{${secondaryColor}.200}`,
+      300: `{${secondaryColor}.300}`,
+      400: `{${secondaryColor}.400}`,
+      500: `{${secondaryColor}.500}`,
+      600: `{${secondaryColor}.600}`,
+      700: `{${secondaryColor}.700}`,
+      800: `{${secondaryColor}.800}`,
+      900: `{${secondaryColor}.900}`,
+      950: `{${secondaryColor}.950}`,
+    },
     colorScheme: {
       light: {
         primary: {
@@ -27,6 +41,7 @@ export const MyPreset = definePreset(PrimeVueTheme, {
           hoverColor: "{primary.800}",
           activeColor: "{primary.700}",
         },
+        secondary: { color: "{secondary.700}" },
         highlight: {
           background: "{primary.950}",
           focusBackground: "{primary.700}",
@@ -41,6 +56,7 @@ export const MyPreset = definePreset(PrimeVueTheme, {
           hoverColor: "{primary.200}",
           activeColor: "{primary.300}",
         },
+        secondary: { color: "{secondary.500}" },
         highlight: {
           background: "{primary.50}",
           focusBackground: "{primary.300}",

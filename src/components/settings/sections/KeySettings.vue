@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 import { storeToRefs } from "pinia"
 import KeybindInput from "../input-components/KeybindInput.vue"
 
-const { keyTemplate } = storeToRefs(useKeyViewerStore())
+const { keyTemplate } = storeToRefs(useKeyTemplateStore())
 </script>
 
 <template>
@@ -14,14 +14,21 @@ const { keyTemplate } = storeToRefs(useKeyViewerStore())
           v-for="(keybindData, gridAreaKey) in keyTemplate.keybinds"
           :key="gridAreaKey"
         >
-          <div class="flex gap-2">
-            <KeybindInput v-model="keyTemplate.keybinds[gridAreaKey]" />
-            <InputText
-              class="flex-1"
-              placeholder="라벨"
-              v-model="keybindData.customLabel"
-              fluid
-            />
+          <div class="flex items-center gap-3 w-full">
+            <h3 class="block w-30 text-right">
+              {{ keybindData.description }}
+            </h3>
+            <div className="flex-1">
+              <KeybindInput v-model="keyTemplate.keybinds[gridAreaKey]" />
+            </div>
+            <div class="w-30">
+              <InputText
+                class="flex-1"
+                placeholder="라벨"
+                v-model="keyTemplate.keybinds[gridAreaKey].customLabel"
+                fluid
+              />
+            </div>
           </div>
         </template>
       </div>

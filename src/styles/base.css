@@ -21,3 +21,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+a {
+  color: var(--p-secondary-color);
+  text-decoration: underline;
+}

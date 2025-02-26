@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
 import ColorInput from "../input-components/ColorInput.vue"
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
 import type { KeyColorOption, KeyTemplate } from "@/types/key-templates"
 import { defaultKeyStyling } from "@/constants/key-template"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 
-const { keyTemplate } = storeToRefs(useKeyViewerStore())
+const { keyTemplate } = storeToRefs(useKeyTemplateStore())
 
 const colorCategoryName: {
   [key in keyof KeyTemplate["styling"]["keyColor"]]: string

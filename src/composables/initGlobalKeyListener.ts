@@ -1,4 +1,5 @@
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
+import { useKeyViewerStore } from "@/stores/keyviewer/useKeyViewerStore"
 import type { KeyPressData } from "@/types/keyviewer/keybind"
 import { listen } from "@tauri-apps/api/event"
 import { storeToRefs } from "pinia"
@@ -8,7 +9,8 @@ import { onMounted, ref, watch } from "vue"
  * Initialize global key listener. Should only be used on `KeyViewer` components once.
  */
 export const initGlobalKeyListener = () => {
-  const { keyTemplate, keyPressData } = storeToRefs(useKeyViewerStore())
+  const { keyTemplate } = storeToRefs(useKeyTemplateStore())
+  const { keyPressData } = storeToRefs(useKeyViewerStore())
   /**
    * List of keys that are being used in the template and should be detected.
    */

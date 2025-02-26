@@ -2,6 +2,7 @@ import { z } from "zod"
 import { ColorHex } from "./unit"
 
 export const KeybindData = z.object({
+  description: z.string(),
   keyCode: z.string(),
   customLabel: z.optional(z.string()),
 })

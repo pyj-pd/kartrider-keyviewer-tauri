@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import { useKeyViewerStore } from "@/stores/keyviewer/useKeyViewerStore"
 import type { KeybindData } from "@/types/key-templates"
 import { getKeybindLabel, getKeybindType } from "@/utils/keyviewer"
 import { storeToRefs } from "pinia"
@@ -7,8 +7,10 @@ import ArrowUp from "./ArrowUp.vue"
 import type { ArrowKeyType } from "@/constants/keyviewer/arrow"
 import { useSizeStore } from "@/stores/keyviewer/useSizeStore"
 import { computed } from "vue"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 
-const { keyPressData, keyTemplate } = storeToRefs(useKeyViewerStore())
+const { keyTemplate } = storeToRefs(useKeyTemplateStore())
+const { keyPressData } = storeToRefs(useKeyViewerStore())
 const { fontSize, borderRadius, borderWidth } = storeToRefs(useSizeStore())
 
 const props = defineProps<{

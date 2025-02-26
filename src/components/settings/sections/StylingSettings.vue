@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
 import SliderInput from "../input-components/SliderInput.vue"
-import { useKeyViewerStore } from "@/stores/useKeyViewerStore"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 import { defaultKeyStyling } from "@/constants/key-template"
 
-const { keyTemplate } = storeToRefs(useKeyViewerStore())
+const { keyTemplate } = storeToRefs(useKeyTemplateStore())
 
 const roundNumber = (value: number) => Math.floor(value * 10) / 10
 </script>

@@ -1,17 +1,22 @@
 {
   "keybinds": {
     "a": {
+      "description": "드리프트",
       "keyCode": "ShiftLeft",
       "customLabel": "Shift"
     },
     "b": {
+      "description": "부스터",
       "keyCode": "ControlLeft",
       "customLabel": "Ctrl"
     },
-    "c": { "keyCode": "UpArrow" },
-    "d": { "keyCode": "LeftArrow" },
-    "e": { "keyCode": "DownArrow" },
-    "f": { "keyCode": "RightArrow" }
+    "c": {
+      "description": "앞 방향키",
+      "keyCode": "UpArrow"
+    },
+    "d": { "description": "왼쪽 방향키", "keyCode": "LeftArrow" },
+    "e": { "description": "뒤 방향키", "keyCode": "DownArrow" },
+    "f": { "description": "오른쪽 방향키", "keyCode": "RightArrow" }
   },
   "gridAreas": ["a a . c .", "b b d e f"],
   "styling": {
