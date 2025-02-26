@@ -5,11 +5,3 @@
   font-display: swap;
   src: url("./assets/fonts/PretendardVariable.woff2") format("woff2-variations");
 }
-
-@font-face {
-  font-family: "KartriderExtraBold";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KartriderExtraBold.woff2")
-    format("woff2");
-  font-weight: 800;
-  font-style: normal;
-}

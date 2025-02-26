@@ -17,7 +17,9 @@ export const defaultKeyStyling = {
       borderColor: "#0c1236",
     },
   },
+
   fontSize: 1.6,
+  fontWeight: 570,
 } as const satisfies KeyTemplate["styling"]
 
 export const defaultKeyTemplate = {

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { githubRepoLink } from "@/constants/project-info"
+import { githubRepoLink, programVersion } from "@/constants/project-info"
 </script>
 
 <template>
   <section>
-    <Panel header="카트라이더 키뷰어">
+    <Panel :header="`카트라이더 키뷰어 ${programVersion}`">
       <p>
         프로그램을 사용해주셔서 감사합니다. 이 프로그램은 오픈소스 프로그램으로,
         <a :href="githubRepoLink" target="_blank">GitHub 레포지토리</a>에서

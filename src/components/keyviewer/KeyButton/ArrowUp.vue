@@ -3,12 +3,25 @@ import {
   ARROW_KEYCODE_ROTATIONS,
   type ArrowKeyType,
 } from "@/constants/keyviewer/arrow"
+import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
+import { storeToRefs } from "pinia"
+import { computed } from "vue"
+
+const { keyTemplate } = storeToRefs(useKeyTemplateStore())
 
 const props = defineProps<{
   keycode: ArrowKeyType
 }>()
 
 const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
+
+/**
+ * If font changes, you might need to adjust these values manually.
+ * @todo Support font change
+ */
+const strokeWidth = computed(
+  () => (keyTemplate.value.styling.fontWeight / 570) * 15,
+)
 </script>
 
 <template>
@@ -25,7 +38,7 @@ const arrowRotation = ARROW_KEYCODE_ROTATIONS[props.keycode]
   >
     <path
       stroke="currentColor"
-      stroke-width="19"
+      :stroke-width="strokeWidth"
       stroke-linecap="round"
       stroke-linejoin="round"
       d="M 50 0 L 0 50 M 50 0 L 50 100 M 50 0 L 100 50"

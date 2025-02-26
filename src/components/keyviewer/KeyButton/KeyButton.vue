@@ -27,13 +27,14 @@ const isKeyPressed = computed(
 <template>
   <template v-if="keyTemplate !== null">
     <div
-      class="flex items-center justify-center text-[2.5vw] overflow-hidden font-semibold font-[KartriderExtraBold]"
+      class="flex items-center justify-center text-[2.5vw] overflow-hidden"
       :key="gridArea"
       :style="{
         gridArea,
         borderRadius,
         borderWidth,
         fontSize,
+        fontWeight: keyTemplate.styling.fontWeight,
 
         backgroundColor: isKeyPressed
           ? keyTemplate.styling.keyColor.pressed.backgroundColor

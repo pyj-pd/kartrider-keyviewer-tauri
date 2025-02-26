@@ -43,12 +43,20 @@ const roundNumber = (value: number) => Math.floor(value * 10) / 10
       <Fieldset legend="폰트">
         <div className="flex flex-col gap-2">
           <SliderInput
-            name="폰트 크기"
+            name="글자 크기"
             :defaultValue="defaultKeyStyling.fontSize"
             v-model="keyTemplate.styling.fontSize"
             :step="0.1"
             :min="0.1"
             :max="roundNumber(keyTemplate.styling.keySize / 3)"
+          />
+          <SliderInput
+            name="글자 두께"
+            :defaultValue="defaultKeyStyling.fontWeight"
+            v-model="keyTemplate.styling.fontWeight"
+            :step="1"
+            :min="100"
+            :max="900"
           />
         </div>
       </Fieldset>
