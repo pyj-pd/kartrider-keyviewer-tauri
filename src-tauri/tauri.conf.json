@@ -46,6 +46,9 @@
       "icons/128x128@2x.png",
       "icons/icon.ico"
     ],
-    "resources": { "../src/bundle-resources/": "./" }
+    "resources": { "../src/bundle-resources/": "./" },
+    "windows": {
+      "wix": { "language": "ko-KO" }
+    }
   }
 }
