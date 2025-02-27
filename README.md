@@ -1,4 +1,4 @@
-# 카트라이더 키뷰어
+# 카트라이더 키뷰어 타우리
 
 [](https://github.com/user-attachments/assets/0b9bfc86-9a03-41df-8c6c-6207d2b2ad53)
 
