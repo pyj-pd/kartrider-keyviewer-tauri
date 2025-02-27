@@ -22,6 +22,8 @@ body {
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  scrollbar-width: none;
 }
 
 a {
