@@ -1,6 +1,21 @@
 # 카트라이더 키뷰어
 
+<video width="480" height="240" controls>
+  <source src="https://github.com/user-attachments/assets/0b9bfc86-9a03-41df-8c6c-6207d2b2ad53" type="video/mp4">
+</video>
+
 [Vue.js](https://vuejs.org/)와 [Tauri](https://tauri.app/) 프레임워크를 이용하여 제작한 간단한 키뷰어 프로그램입니다.
+
+## 사용법
+
+- 원활한 사용을 위해 꼭 **관리자 권한으로 실행**해주세요.
+- 옵션을 열려면 **키뷰어 화면을 더블클릭**해주세요.
+
+## To-do
+
+- [ ] 콘피그 파일 변경 기능 추가
+- [ ] 잘못된 파일 로드 시 알림 기능 추가
+- [ ] 폰트 변경 기능 추가
 
 # Tauri + Vue + TypeScript
 

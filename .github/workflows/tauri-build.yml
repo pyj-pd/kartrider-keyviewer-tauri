@@ -1,4 +1,4 @@
-name: "publish"
+name: "Build Tauri app"
 
 on: workflow_dispatch
 
@@ -74,4 +74,5 @@ jobs:
 
           path: |
             ./src-tauri/target/release/*.exe
+            ./src-tauri/target/release/*.txt
             ./src-tauri/target/release/resources
