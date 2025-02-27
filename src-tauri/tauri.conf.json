@@ -20,15 +20,21 @@
         "resizable": false,
         "alwaysOnTop": true,
         "decorations": false,
+        "shadow": false,
         "acceptFirstMouse": true
       },
       {
         "title": "설정",
         "label": "settings",
         "url": "/#settings",
-        "width": 700,
-        "height": 800,
-        "resizable": false,
+        "width": 500,
+        "minWidth": 500,
+        "maxWidth": 900,
+        "height": 600,
+        "minHeight": 600,
+        "maxHeight": 900,
+        "resizable": true,
+        "maximizable": false,
         "create": false,
         "visible": false
       }

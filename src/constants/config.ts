@@ -12,6 +12,6 @@ export const defaultKeyViewerConfig = {
   windowSettings: {
     alwaysOnTop: true as boolean,
 
-    width: 600 as number,
+    width: 500 as number,
   },
 } as const satisfies KeyViewerConfigV1
