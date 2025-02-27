@@ -48,7 +48,7 @@
     ],
     "resources": { "../src/bundle-resources/": "./" },
     "windows": {
-      "wix": { "language": "ko-KO" }
+      "wix": { "language": "ko-KR" }
     }
   }
 }
