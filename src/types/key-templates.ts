@@ -19,6 +19,8 @@ export const keyColorOption = z.object({
 export type KeyColorOption = z.infer<typeof keyColorOption>
 
 export const KeyTemplate = z.object({
+  templateName: z.string(),
+
   keybinds: z.record(/* Grid area key */ z.string(), KeybindData),
 
   // Styles

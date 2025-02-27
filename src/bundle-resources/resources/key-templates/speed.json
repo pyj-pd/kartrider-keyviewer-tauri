@@ -1,4 +1,6 @@
 {
+  "templateName": "스피드전",
+
   "keybinds": {
     "a": {
       "description": "드리프트",

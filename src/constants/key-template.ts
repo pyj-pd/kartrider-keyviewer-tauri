@@ -23,6 +23,8 @@ export const defaultKeyStyling = {
 } as const satisfies KeyTemplate["styling"]
 
 export const defaultKeyTemplate = {
+  templateName: "스피드전",
+
   keybinds: {
     a: {
       description: "드리프트",

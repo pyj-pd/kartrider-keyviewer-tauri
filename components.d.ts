@@ -14,6 +14,7 @@ declare module 'vue' {
     ColorInput: typeof import('./src/components/settings/input-components/ColorInput.vue')['default']
     ColorPicker: typeof import('primevue/colorpicker')['default']
     ColorSettings: typeof import('./src/components/settings/sections/ColorSettings.vue')['default']
+    ConfigFileSettings: typeof import('./src/components/settings/sections/ConfigFileSettings.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Fieldset: typeof import('primevue/fieldset')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
