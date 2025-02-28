@@ -7,6 +7,7 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 import { defaultKeyTemplate } from "@/constants/key-template"
 import { logMessages } from "@/constants/log-messages"
+import { useLogMessage } from "./useLogMessage"
 
 /**
  * Handler for handling key template files.
@@ -21,6 +22,8 @@ export const useKeyTemplateFile = () => {
     KeyTemplate,
   )
 
+  const { writeLogMessage } = useLogMessage()
+
   /**
    * Loads key template file and mutate the key template store.
    */
@@ -31,14 +34,22 @@ export const useKeyTemplateFile = () => {
       // No key template file
       if (keyTemplateFileData === null) {
         setDefaultKeyTemplate()
-        console.error(logMessages.keyTemplate.noFile)
+
+        writeLogMessage({
+          detail: logMessages.keyTemplate.noFile,
+          severity: "error",
+        })
         return
       }
 
       keyTemplate.value = keyTemplateFileData
     } catch {
       setDefaultKeyTemplate()
-      console.error(logMessages.keyTemplate.failedToLoadFallbackDefault)
+
+      writeLogMessage({
+        detail: logMessages.keyTemplate.failedToLoadFallbackDefault,
+        severity: "error",
+      })
     }
   }
 
@@ -47,7 +58,10 @@ export const useKeyTemplateFile = () => {
    */
   const saveKeyTemplateAsFile = async () => {
     if (keyTemplate.value === null) {
-      console.error(logMessages.keyTemplate.noData)
+      writeLogMessage({
+        detail: logMessages.keyTemplate.noData,
+        severity: "error",
+      })
       return
     }
 
@@ -60,7 +74,10 @@ export const useKeyTemplateFile = () => {
         from: await getCurrentWebviewWindow().label,
       })
     } catch {
-      console.error(logMessages.keyTemplate.failedToSave)
+      writeLogMessage({
+        detail: logMessages.keyTemplate.failedToSave,
+        severity: "error",
+      })
     }
   }
 

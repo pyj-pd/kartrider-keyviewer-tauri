@@ -30,6 +30,7 @@ declare module 'vue' {
     Slider: typeof import('primevue/slider')['default']
     SliderInput: typeof import('./src/components/settings/input-components/SliderInput.vue')['default']
     StylingSettings: typeof import('./src/components/settings/sections/StylingSettings.vue')['default']
+    Toast: typeof import('primevue/toast')['default']
     WindowSettings: typeof import('./src/components/settings/sections/WindowSettings.vue')['default']
   }
 }

@@ -5,6 +5,7 @@ import { createPinia } from "pinia"
 
 import PrimeVue, { type PrimeVueConfiguration } from "primevue/config"
 import { theme } from "./styles/theme"
+import { ToastService } from "primevue"
 
 const app = createApp(App)
 
@@ -14,5 +15,6 @@ app.use(pinia)
 app.use(PrimeVue, {
   theme,
 } as PrimeVueConfiguration)
+app.use(ToastService)
 
 app.mount("#app")

@@ -37,5 +37,6 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <Toast />
   <component v-if="isConfigLoaded" :is="currentPage?.component" />
 </template>

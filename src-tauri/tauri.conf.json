@@ -34,8 +34,8 @@
         "minHeight": 600,
         "maxHeight": 900,
         "resizable": true,
-        "maximizable": false,
         "create": false,
+        "maximizable": false,
         "visible": false
       }
     ],

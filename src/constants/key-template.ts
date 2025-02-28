@@ -18,7 +18,7 @@ export const defaultKeyStyling = {
     },
   },
 
-  fontSize: 1.6,
+  fontSize: 1.8,
   fontWeight: 570,
 } as const satisfies KeyTemplate["styling"]
 

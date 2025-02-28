@@ -5,6 +5,7 @@ import { KeyViewerConfigV1 } from "@/types/config"
 import { invoke } from "@tauri-apps/api/core"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { logMessages } from "@/constants/log-messages"
+import { useLogMessage } from "./useLogMessage"
 
 /**
  * Handler for handling config files.
@@ -16,6 +17,7 @@ export const useConfigFile = () => {
     configFilePath,
     KeyViewerConfigV1,
   )
+  const { writeLogMessage } = useLogMessage()
 
   /**
    * Loads config file and mutate the config store.
@@ -26,13 +28,18 @@ export const useConfigFile = () => {
 
       if (configFileData === null) {
         // No config file
-        console.log(logMessages.config.noFileFallbackDefault)
+        writeLogMessage({
+          detail: logMessages.config.noFileFallbackDefault,
+        })
         return
       }
 
       configStore.$patch(configFileData)
     } catch {
-      console.error(logMessages.config.failedToLoad)
+      writeLogMessage({
+        detail: logMessages.config.failedToLoad,
+        severity: "error",
+      })
     }
   }
 
