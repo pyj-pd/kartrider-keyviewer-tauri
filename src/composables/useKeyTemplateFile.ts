@@ -58,10 +58,13 @@ export const useKeyTemplateFile = () => {
    */
   const saveKeyTemplateAsFile = async () => {
     if (keyTemplate.value === null) {
-      writeLogMessage({
-        detail: logMessages.keyTemplate.noData,
-        severity: "error",
-      })
+      writeLogMessage(
+        {
+          detail: logMessages.keyTemplate.noData,
+          severity: "error",
+        },
+        false,
+      )
       return
     }
 
@@ -74,10 +77,13 @@ export const useKeyTemplateFile = () => {
         from: await getCurrentWebviewWindow().label,
       })
     } catch {
-      writeLogMessage({
-        detail: logMessages.keyTemplate.failedToSave,
-        severity: "error",
-      })
+      writeLogMessage(
+        {
+          detail: logMessages.keyTemplate.failedToSave,
+          severity: "error",
+        },
+        false,
+      )
     }
   }
 

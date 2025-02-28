@@ -9,8 +9,6 @@ type LogMessageOptions = Omit<ToastMessageOptions, "detail"> & {
   detail: string
 }
 
-const DEFAULT_TOAST_LIFE = 10_000
-
 /**
  * Composable for handling log messages.
  */
@@ -56,7 +54,6 @@ export const useLogMessage = () => {
     const toastOption = { ...messageOption }
 
     toastOption.summary ??= defaultToastTitles[messageOption.severity ?? "info"]
-    toastOption.life ??= DEFAULT_TOAST_LIFE
 
     if (TOAST_SHOW_WINDOW.includes(currentWindow.label)) toast.add(toastOption)
   }

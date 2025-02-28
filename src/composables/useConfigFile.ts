@@ -28,16 +28,19 @@ export const useConfigFile = () => {
 
       if (configFileData === null) {
         // No config file
-        writeLogMessage({
-          detail: logMessages.config.noFileFallbackDefault,
-        })
+        writeLogMessage(
+          {
+            detail: logMessages.config.noFileFallbackDefault,
+          },
+          false,
+        )
         return
       }
 
       configStore.$patch(configFileData)
     } catch {
       writeLogMessage({
-        detail: logMessages.config.failedToLoad,
+        detail: logMessages.config.failedToLoadFallbackDefault,
         severity: "error",
       })
     }
