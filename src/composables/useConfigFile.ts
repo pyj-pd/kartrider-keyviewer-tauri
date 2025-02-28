@@ -39,6 +39,7 @@ export const useConfigFile = () => {
 
       configStore.$patch(configFileData)
     } catch {
+      saveConfigAsFile()
       writeLogMessage({
         detail: logMessages.config.failedToLoadFallbackDefault,
         severity: "error",

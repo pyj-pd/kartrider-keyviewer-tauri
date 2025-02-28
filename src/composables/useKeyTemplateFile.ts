@@ -45,6 +45,7 @@ export const useKeyTemplateFile = () => {
       keyTemplate.value = keyTemplateFileData
     } catch {
       setDefaultKeyTemplate()
+      saveKeyTemplateAsFile()
 
       writeLogMessage({
         detail: logMessages.keyTemplate.failedToLoadFallbackDefault,

@@ -3,7 +3,7 @@ import type { KeyTemplate } from "@/types/key-templates"
 export const defaultKeyStyling = {
   keySize: 10,
   keyGap: 1,
-  keyBorderRadius: 0.3,
+  keyBorderRadius: 0.5,
   keyBorderWidth: 0,
   keyColor: {
     idle: {
@@ -18,7 +18,7 @@ export const defaultKeyStyling = {
     },
   },
 
-  fontSize: 1.8,
+  fontSize: 2,
   fontWeight: 570,
   fontFamily: "Pretendard",
 } as const satisfies KeyTemplate["styling"]
