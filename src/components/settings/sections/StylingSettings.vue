@@ -14,9 +14,8 @@ const roundNumber = (value: number) => Math.floor(value * 10) / 10
 // Font selector
 const fontList = ref<null | string[]>(null)
 
-const loadFontList = async () => {
-  fontList.value = await invoke<string[]>("get_font_family_list")
-}
+const loadFontList = async () =>
+  (fontList.value = await invoke<string[]>("get_font_family_list"))
 
 onMounted(() => {
   loadFontList()
@@ -78,11 +77,6 @@ onMounted(() => {
             v-model="keyTemplate.styling.fontFamily"
             :options="fontList ?? undefined"
             :loading="fontList === null"
-            :virtual-scroller-options="{
-              itemSize: 38,
-              autoSize: true,
-              delay: 50,
-            }"
           />
         </div>
       </Fieldset>
