@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
 import ColorInput from "../input-components/ColorInput.vue"
-import type { KeyColorOption, KeyTemplate } from "@/types/key-templates"
+import type { KeyColorOption, KeyTemplateStyling } from "@/types/key-templates"
 import { defaultKeyStyling } from "@/constants/key-template"
 import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 
 const { keyTemplate } = storeToRefs(useKeyTemplateStore())
 
 const colorCategoryName: {
-  [key in keyof KeyTemplate["styling"]["keyColor"]]: string
+  [key in keyof KeyTemplateStyling["keyColor"]]: string
 } = { idle: "일반 상태", pressed: "눌린 상태" }
 
 const colorTypeName: {

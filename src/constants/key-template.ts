@@ -1,50 +1,8 @@
-import type { KeyTemplate } from "@/types/key-templates"
+import { KeyTemplate, KeyTemplateStyling } from "@/types/key-templates"
+import defaultKeyTemplateJson from "@/bundle-resources/resources/key-templates/speed.json"
 
-export const defaultKeyStyling = {
-  keySize: 10,
-  keyGap: 1,
-  keyBorderRadius: 0.5,
-  keyBorderWidth: 0,
-  keyColor: {
-    idle: {
-      backgroundColor: "#ffffff",
-      textColor: "#0c1236",
-      borderColor: "#0c1236",
-    },
-    pressed: {
-      backgroundColor: "#00d7f8",
-      textColor: "#0c1236",
-      borderColor: "#0c1236",
-    },
-  },
+export const defaultKeyStyling = KeyTemplateStyling.parse(
+  defaultKeyTemplateJson.styling,
+)
 
-  fontSize: 1.9,
-  fontWeight: 570,
-  fontFamily: "Pretendard",
-} as const satisfies KeyTemplate["styling"]
-
-export const defaultKeyTemplate = {
-  templateName: "스피드전",
-
-  keybinds: {
-    a: {
-      description: "드리프트",
-      keyCode: "ShiftLeft",
-      customLabel: "Shift",
-    },
-    b: {
-      description: "부스터",
-      keyCode: "ControlLeft",
-      customLabel: "Ctrl",
-    },
-    c: {
-      description: "앞 방향키",
-      keyCode: "UpArrow",
-    },
-    d: { description: "왼쪽 방향키", keyCode: "LeftArrow" },
-    e: { description: "뒤 방향키", keyCode: "DownArrow" },
-    f: { description: "오른쪽 방향키", keyCode: "RightArrow" },
-  },
-  gridAreas: ["a a . c .", "b b d e f"],
-  styling: defaultKeyStyling,
-} as const satisfies KeyTemplate
+export const defaultKeyTemplate = KeyTemplate.parse(defaultKeyTemplateJson)

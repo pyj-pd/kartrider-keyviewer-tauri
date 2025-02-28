@@ -1,4 +1,4 @@
-import type { KeybindData, KeyTemplate } from "@/types/key-templates"
+import type { KeybindData, KeyTemplateStyling } from "@/types/key-templates"
 import { keybindTypeRegex, type KeybindType } from "@/types/keyviewer/keybind"
 import type { AbsoluteSizeData } from "@/types/keyviewer/size"
 import type { PxUnit } from "@/types/unit"
@@ -47,7 +47,7 @@ export const calculateKeyViewerAbsoluteSizes = ({
 
   columnCount: number
   rowCount: number
-} & KeyTemplate["styling"]): AbsoluteSizeData => {
+} & KeyTemplateStyling): AbsoluteSizeData => {
   // Set window size
   const relativeWidth = keySize * columnCount + keyGap * (columnCount - 1)
   const relativeHeight = keySize * rowCount + keyGap * (rowCount - 1)
