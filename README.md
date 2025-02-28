@@ -13,13 +13,15 @@
 1. [이곳에서 압축 파일을 다운로드해 주세요.](https://github.com/pyj-pd/kartrider-keyviewer-tauri/releases)
 1. 내려받은 파일을 원하시는 곳에 압축 해제해 주세요.
 1. 압축 해제한 폴더에 있는 실행 파일(`kartrider-keyviewer-tauri.exe`)을 **관리자 권한으로 실행**하면 끝입니다.
-1. 설정 창을 열려면 **키뷰어 화면을 더블클릭**해 주세요.
+1. 설정 창을 열려면 **키뷰어 화면을 더블 클릭**해 주세요.
 
 관리자 권한으로 실행하지 않으면 원활한 사용이 불가할 수도 있습니다.
 
-<img src="https://github.com/user-attachments/assets/cf98d1aa-8d10-4b9f-8fde-25be0b0ab07d" alt="'KartRiderKeyViewerTauri-Windows.zip' 버튼을 화살표로 강조" width="500" />
-
+<img display="block" src="https://github.com/user-attachments/assets/cf98d1aa-8d10-4b9f-8fde-25be0b0ab07d" alt="'KartRiderKeyViewerTauri-Windows.zip' 버튼을 화살표로 강조" width="550" />
+<br />
 <img src="https://github.com/user-attachments/assets/0d9e8f50-9edc-4c9c-a8fc-86719ab000a7" alt="'kartrider-keyviewer-tauri.exe' 파일을 화살표로 강조" width="400" />
+<br />
+<img src="https://github.com/user-attachments/assets/853518be-c730-400c-9f42-85a5c18058af" alt="키뷰어 창 아무데나 더블 클릭해서 설정 열기" width="400" />
 
 ## 업데이트 방법
 
