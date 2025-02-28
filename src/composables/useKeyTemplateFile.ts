@@ -43,8 +43,7 @@ export const useKeyTemplateFile = () => {
       }
 
       keyTemplate.value = keyTemplateFileData
-    } catch (error) {
-      console.log(error)
+    } catch {
       setDefaultKeyTemplate()
 
       writeLogMessage({
