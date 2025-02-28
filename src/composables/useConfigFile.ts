@@ -40,7 +40,7 @@ export const useConfigFile = () => {
       configStore.$patch(configFileData)
     } catch {
       // Fallback to default config because of error
-      saveConfigAsFile(true) // Save default data to file
+      await saveConfigAsFile(true) // Save default data to file
       writeLogMessage({
         detail: logMessages.config.failedToLoadFallbackDefault,
         severity: "error",

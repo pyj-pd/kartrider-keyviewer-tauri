@@ -44,7 +44,7 @@ export const useKeyTemplateFile = () => {
 
       keyTemplate.value = keyTemplateFileData
     } catch {
-      saveKeyTemplateAsFile(true) // Create backup before fallbacking
+      await saveKeyTemplateAsFile(true) // Create backup before fallbacking
       setDefaultKeyTemplate()
 
       writeLogMessage({

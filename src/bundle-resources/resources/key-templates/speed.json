@@ -24,7 +24,7 @@
   "styling": {
     "keySize": 10,
     "keyGap": 1,
-    "keyBorderRadius": 0.3,
+    "keyBorderRadius": 0.5,
     "keyBorderWidth": 0,
     "keyColor": {
       "idle": {
@@ -38,7 +38,8 @@
         "borderColor": "#0c1236"
       }
     },
-    "fontSize": 1.6,
+
+    "fontSize": 1.9,
     "fontWeight": 570,
     "fontFamily": "Pretendard"
   }
