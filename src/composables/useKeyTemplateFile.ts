@@ -29,7 +29,7 @@ export const useKeyTemplateFile = () => {
    */
   const loadKeyTemplateFile = async () => {
     try {
-      const keyTemplateFileData = await getFileData()
+      const keyTemplateFileData = await getFileData(defaultKeyTemplate)
 
       // No key template file
       if (keyTemplateFileData === null) {
@@ -43,7 +43,8 @@ export const useKeyTemplateFile = () => {
       }
 
       keyTemplate.value = keyTemplateFileData
-    } catch {
+    } catch (error) {
+      console.log(error)
       setDefaultKeyTemplate()
 
       writeLogMessage({

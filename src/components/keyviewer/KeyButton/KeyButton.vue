@@ -35,6 +35,7 @@ const isKeyPressed = computed(
         borderWidth,
         fontSize,
         fontWeight: keyTemplate.styling.fontWeight,
+        fontFamily: keyTemplate.styling.fontFamily,
 
         backgroundColor: isKeyPressed
           ? keyTemplate.styling.keyColor.pressed.backgroundColor

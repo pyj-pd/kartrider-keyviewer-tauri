@@ -1,4 +1,4 @@
-import { configFilePath } from "@/constants/config"
+import { configFilePath, defaultKeyViewerConfig } from "@/constants/config"
 import { useFileHandler } from "./useFileHandler"
 import { useConfigStore } from "@/stores/useConfigStore"
 import { KeyViewerConfigV1 } from "@/types/config"
@@ -24,7 +24,7 @@ export const useConfigFile = () => {
    */
   const loadConfigFile = async () => {
     try {
-      const configFileData = await getFileData()
+      const configFileData = await getFileData(defaultKeyViewerConfig)
 
       if (configFileData === null) {
         // No config file

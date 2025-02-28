@@ -4,6 +4,7 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import type { ZodType } from "zod"
 import { path } from "@tauri-apps/api"
 import { baseDir } from "@/constants/path"
+import _ from "lodash"
 
 /**
  * Handler for saving, loading files.
@@ -40,24 +41,31 @@ export const useFileHandler = <FileType>(
 
   /**
    * Reads file and returns data of the file.
+   * @param defaultDataToMergeWith If this parameter is passed, it will accept partial match of the data, and merge rest of the file data with default data provided.
    * @returns Data of the file if the file exists, otherwise `null`.
-   * @throws Error if validation failed.
+   * @throws Error if data parsing failed.
    */
-  const getFileData = async (): Promise<FileType | null> => {
+  const getFileData = async (
+    defaultDataToMergeWith?: FileType,
+  ): Promise<FileType | null> => {
     if (filePath === null) throw new Error("No config file path passed.")
 
     const resolvedFilePath = await path.join(baseDir, filePath)
-    if (await exists(resolvedFilePath)) {
-      // Read file
-      const rawFileData = await readTextFile(resolvedFilePath)
+    if (!(await exists(resolvedFilePath))) return null // File doesn't exist
 
-      const data = zodValidator.parse(JSON.parse(rawFileData))
+    // Read file
+    const rawFileData = await readTextFile(resolvedFilePath)
 
-      return data
-    } else {
-      // File doesn't exist
-      return null
-    }
+    let fileData = JSON.parse(rawFileData)
+
+    if (defaultDataToMergeWith !== undefined)
+      // Merge with default data first before parsing
+      fileData = _.merge(structuredClone(defaultDataToMergeWith), fileData)
+
+    // Parse data and return
+    const data = zodValidator.parse(fileData)
+
+    return data
   }
 
   return {

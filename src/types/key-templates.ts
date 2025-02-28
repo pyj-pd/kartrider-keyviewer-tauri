@@ -41,6 +41,7 @@ export const KeyTemplate = z.object({
     fontSize: z.number(),
     /** Absolute number */
     fontWeight: z.number(),
+    fontFamily: z.string(),
   }),
 })
 

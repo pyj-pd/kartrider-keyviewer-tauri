@@ -28,6 +28,7 @@ pub fn run() {
         })
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
+            commands::get_font_family_list,
             commands::open_settings,
             commands::set_keyviewer_always_on_top,
             commands::set_keyviewer_window_size,

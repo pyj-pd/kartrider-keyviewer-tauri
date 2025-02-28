@@ -3,10 +3,24 @@ import { storeToRefs } from "pinia"
 import SliderInput from "../input-components/SliderInput.vue"
 import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 import { defaultKeyStyling } from "@/constants/key-template"
+import { onMounted, ref } from "vue"
+import { invoke } from "@tauri-apps/api/core"
+import SelectInput from "../input-components/SelectInput.vue"
 
 const { keyTemplate } = storeToRefs(useKeyTemplateStore())
 
 const roundNumber = (value: number) => Math.floor(value * 10) / 10
+
+// Font selector
+const fontList = ref<null | string[]>(null)
+
+const loadFontList = async () => {
+  fontList.value = await invoke<string[]>("get_font_family_list")
+}
+
+onMounted(() => {
+  loadFontList()
+})
 </script>
 
 <template>
@@ -57,6 +71,18 @@ const roundNumber = (value: number) => Math.floor(value * 10) / 10
             :step="1"
             :min="100"
             :max="900"
+          />
+          <SelectInput
+            name="글꼴"
+            :defaultValue="defaultKeyStyling.fontFamily"
+            v-model="keyTemplate.styling.fontFamily"
+            :options="fontList ?? undefined"
+            :loading="fontList === null"
+            :virtual-scroller-options="{
+              itemSize: 38,
+              autoSize: true,
+              delay: 50,
+            }"
           />
         </div>
       </Fieldset>

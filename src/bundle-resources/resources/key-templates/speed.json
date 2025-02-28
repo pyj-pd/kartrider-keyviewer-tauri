@@ -39,6 +39,7 @@
       }
     },
     "fontSize": 1.6,
-    "fontWeight": 570
+    "fontWeight": 570,
+    "fontFamily": "Pretendard"
   }
 }

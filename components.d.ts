@@ -26,6 +26,8 @@ declare module 'vue' {
     Panel: typeof import('primevue/panel')['default']
     ProgramDescription: typeof import('./src/components/settings/sections/ProgramDescription.vue')['default']
     ResetButton: typeof import('./src/components/settings/input-components/ResetButton.vue')['default']
+    Select: typeof import('primevue/select')['default']
+    SelectInput: typeof import('./src/components/settings/input-components/SelectInput.vue')['default']
     SettingsWebview: typeof import('./src/components/settings/SettingsWebview.vue')['default']
     Slider: typeof import('primevue/slider')['default']
     SliderInput: typeof import('./src/components/settings/input-components/SliderInput.vue')['default']

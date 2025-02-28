@@ -20,6 +20,7 @@ export const defaultKeyStyling = {
 
   fontSize: 1.8,
   fontWeight: 570,
+  fontFamily: "Pretendard",
 } as const satisfies KeyTemplate["styling"]
 
 export const defaultKeyTemplate = {

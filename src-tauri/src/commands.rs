@@ -1,4 +1,12 @@
+use font_kit::source::SystemSource;
 use tauri::{Emitter, LogicalSize, Manager, Size};
+
+
+#[tauri::command]
+pub  fn get_font_family_list() -> Vec<String> {
+    let font_source = SystemSource::new();
+    font_source.all_families().unwrap().into()
+}
 
 #[tauri::command]
 pub async fn open_settings(app: tauri::AppHandle) {
