@@ -1,4 +1,9 @@
-import { exists, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs"
+import {
+  copyFile,
+  exists,
+  readTextFile,
+  writeTextFile,
+} from "@tauri-apps/plugin-fs"
 import { invoke } from "@tauri-apps/api/core"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import type { ZodType } from "zod"
@@ -22,12 +27,33 @@ export const useFileHandler = <FileType>(
 ) => {
   /**
    * Saves data to the file.
-   * @@param data Data to write.
+   * @param data Data to write.
+   * @param shouldCreateBackup Whether to create backup file before saving.
    */
-  const saveDataToFile = async (data: FileType) => {
+  const saveDataToFile = async (
+    data: FileType,
+    shouldCreateBackup: boolean = false,
+  ) => {
     if (filePath === null) throw new Error("No config file path passed.")
 
     const resolvedFilePath = await path.join(baseDir, filePath)
+
+    if (shouldCreateBackup) {
+      // Create backup
+      const resolvedBackupFilePathBase = `${resolvedFilePath}.backup`
+      let resolvedBackupFilePath: string = resolvedBackupFilePathBase
+
+      // Check for duplicates
+      let backupFileTries: number = 0
+      while (await exists(resolvedBackupFilePath)) {
+        backupFileTries++
+        resolvedBackupFilePath = `${resolvedBackupFilePathBase}${backupFileTries}`
+      }
+
+      // Copy
+      await copyFile(resolvedFilePath, resolvedBackupFilePath)
+    }
+
     const configDataString = JSON.stringify(data, undefined, 2)
 
     // Write to the file

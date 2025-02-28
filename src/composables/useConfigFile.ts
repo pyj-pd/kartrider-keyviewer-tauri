@@ -39,7 +39,8 @@ export const useConfigFile = () => {
 
       configStore.$patch(configFileData)
     } catch {
-      saveConfigAsFile()
+      // Fallback to default config because of error
+      saveConfigAsFile(true) // Save default data to file
       writeLogMessage({
         detail: logMessages.config.failedToLoadFallbackDefault,
         severity: "error",
@@ -49,10 +50,11 @@ export const useConfigFile = () => {
 
   /**
    * Saves config store data to the config file.
+   * @param shouldCreateBackup Whether to create backup file before saving.
    */
-  const saveConfigAsFile = async () => {
+  const saveConfigAsFile = async (shouldCreateBackup: boolean = false) => {
     // Write to the file
-    await saveDataToFile(configStore.$state)
+    await saveDataToFile(configStore.$state, shouldCreateBackup)
 
     // Ping all windows
     await invoke("update_config", {

@@ -44,8 +44,8 @@ export const useKeyTemplateFile = () => {
 
       keyTemplate.value = keyTemplateFileData
     } catch {
+      saveKeyTemplateAsFile(true) // Create backup before fallbacking
       setDefaultKeyTemplate()
-      saveKeyTemplateAsFile()
 
       writeLogMessage({
         detail: logMessages.keyTemplate.failedToLoadFallbackDefault,
@@ -56,8 +56,9 @@ export const useKeyTemplateFile = () => {
 
   /**
    * Saves key template store data to the key template file.
+   * @param shouldCreateBackup Whether to create backup file before saving.
    */
-  const saveKeyTemplateAsFile = async () => {
+  const saveKeyTemplateAsFile = async (shouldCreateBackup: boolean = false) => {
     if (keyTemplate.value === null) {
       writeLogMessage(
         {
@@ -71,7 +72,7 @@ export const useKeyTemplateFile = () => {
 
     try {
       // Write to the file
-      await saveDataToFile(keyTemplate.value)
+      await saveDataToFile(keyTemplate.value, shouldCreateBackup)
 
       // Ping all windows
       await invoke("update_template", {
