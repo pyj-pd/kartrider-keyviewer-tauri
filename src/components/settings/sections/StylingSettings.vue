@@ -14,8 +14,15 @@ const roundNumber = (value: number) => Math.floor(value * 10) / 10
 // Font selector
 const fontList = ref<null | string[]>(null)
 
-const loadFontList = async () =>
-  (fontList.value = await invoke<string[]>("get_font_family_list"))
+const loadFontList = async () => {
+  const systemFontList = await invoke<string[]>("get_font_family_list")
+
+  // Add default font family to font list too in case users don't have that font in their systems
+  if (!systemFontList.includes(defaultKeyStyling.fontFamily))
+    systemFontList.push(defaultKeyStyling.fontFamily)
+
+  fontList.value = [...systemFontList]
+}
 
 onMounted(() => {
   loadFontList()
