@@ -3,7 +3,7 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { useToast, type ToastMessageOptions } from "primevue"
 
 /** Labels of windows to show toasts on. */
-const TOAST_SHOW_WINDOW = ["settings"]
+const TOAST_SHOW_WINDOWS = ["settings"]
 
 type LogMessageOptions = Omit<ToastMessageOptions, "detail"> & {
   detail: string
@@ -55,7 +55,7 @@ export const useLogMessage = () => {
 
     toastOption.summary ??= defaultToastTitles[messageOption.severity ?? "info"]
 
-    if (TOAST_SHOW_WINDOW.includes(currentWindow.label)) toast.add(toastOption)
+    if (TOAST_SHOW_WINDOWS.includes(currentWindow.label)) toast.add(toastOption)
   }
 
   return { writeLogMessage }

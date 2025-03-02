@@ -15,6 +15,11 @@ import { computed, isRef, type Ref } from "vue"
 type _FileRelativePath = string | null
 
 /**
+ * Prevent backup being created by multiple windows.
+ */
+export const CREATE_BACKUP_WINDOW = "keyviewer"
+
+/**
  * Handler for saving, loading files.
  *
  * Mostly used internally.
@@ -48,7 +53,10 @@ export const useFileHandler = <FileType>(
 
     const filePath = await path.join(baseDir, fileRelativePath.value)
 
-    if (shouldCreateBackup) {
+    if (
+      shouldCreateBackup &&
+      getCurrentWebviewWindow().label === CREATE_BACKUP_WINDOW
+    ) {
       // Create backup
       const backupFilePathBase = `${filePath}.backup`
       let backupFilePath: string = backupFilePathBase
