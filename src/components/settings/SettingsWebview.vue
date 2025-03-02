@@ -5,7 +5,7 @@ import StylingSettings from "./sections/StylingSettings.vue"
 import ColorSettings from "./sections/ColorSettings.vue"
 import KeySettings from "./sections/KeySettings.vue"
 import ProgramDescription from "./sections/ProgramDescription.vue"
-import ConfigFileSettings from "./sections/ConfigFileSettings.vue"
+// import ConfigFileSettings from "./sections/ConfigFileSettings.vue"
 
 initConfigUpdater()
 </script>
@@ -15,7 +15,7 @@ initConfigUpdater()
     <!-- Description -->
     <ProgramDescription />
     <!-- Settings -->
-    <ConfigFileSettings />
+    <!-- <ConfigFileSettings /> -->
     <KeySettings />
     <WindowSettings />
     <StylingSettings />
