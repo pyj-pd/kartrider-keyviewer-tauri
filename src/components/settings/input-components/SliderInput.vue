@@ -35,7 +35,13 @@ const resetValue = () => (modelValue.value = props.defaultValue)
       />
     </div>
     <div class="px-3 flex-1">
-      <Slider v-model="modelValue" :step="step" :min="min" :max="max" fluid />
+      <Slider
+        v-model="modelValue as number"
+        :step="step"
+        :min="min"
+        :max="max"
+        fluid
+      />
     </div>
     <ResetButton :disabled="modelValue === defaultValue" @reset="resetValue" />
   </div>

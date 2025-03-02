@@ -13,5 +13,8 @@ export const logMessages = {
     failedToLoadFallbackDefault:
       "키보드 템플릿을 불러오는 데 실패하였습니다. 템플릿 데이터 구조가 잘못된 것 같습니다. 기본 템플릿을 대신 사용합니다.",
     failedToSave: "키보드 템블릿을 저장하는 데 실패하였습니다.",
+    failedToLoadDirectory: "키보드 템플릿 목록을 불러오는 데 실패하였습니다.",
+    failedToLocateFile:
+      "설정한 파일 경로가 잘못되었습니다. 기본 파일 경로를 대신 사용합니다.",
   },
 } as const

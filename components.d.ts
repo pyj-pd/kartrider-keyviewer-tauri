@@ -10,6 +10,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ArrowUp: typeof import('./src/components/keyviewer/KeyButton/ArrowUp.vue')['default']
     Button: typeof import('primevue/button')['default']
+    CascadeSelect: typeof import('primevue/cascadeselect')['default']
     Checkbox: typeof import('primevue/checkbox')['default']
     ColorInput: typeof import('./src/components/settings/input-components/ColorInput.vue')['default']
     ColorPicker: typeof import('primevue/colorpicker')['default']

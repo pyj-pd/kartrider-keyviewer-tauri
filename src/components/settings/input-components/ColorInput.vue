@@ -48,7 +48,7 @@ const validateColorInput = (event: Event) => {
     <ColorPicker v-model="hexCodeWithoutHashSign" format="hex" />
     <div class="flex-1">
       <InputText
-        v-model="draftValue"
+        v-model="draftValue as string | undefined"
         :invalid="isInputTextInvalid"
         @focus="() => (isInputTextInvalid = false)"
         @change="validateColorInput"

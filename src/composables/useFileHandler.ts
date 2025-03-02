@@ -10,6 +10,9 @@ import type { ZodType } from "zod"
 import { path } from "@tauri-apps/api"
 import { baseDir } from "@/constants/path"
 import _ from "lodash"
+import { computed, isRef, type Ref } from "vue"
+
+type _FileRelativePath = string | null
 
 /**
  * Handler for saving, loading files.
@@ -17,14 +20,20 @@ import _ from "lodash"
  * Mostly used internally.
  * - Use `useConfigFile` for handling config file.
  * - Use `useKeyTemplateFile` for handling key template file.
- * @param filePath Path of file. Should be resolved in order to be handled correctly.
+ * @param fileRelativePathArgument Relative path of file as ref or normal value. Should be resolved in order to be handled correctly.
  * @param zodValidator Zod validator for parsing the file
  * @returns Functions for saving, loading the file
  */
 export const useFileHandler = <FileType>(
-  filePath: string | null,
+  fileRelativePathArgument: _FileRelativePath | Ref<_FileRelativePath>,
   zodValidator: ZodType<FileType>,
 ) => {
+  const fileRelativePath = computed<_FileRelativePath>(() =>
+    isRef(fileRelativePathArgument)
+      ? fileRelativePathArgument.value
+      : fileRelativePathArgument,
+  )
+
   /**
    * Saves data to the file.
    * @param data Data to write.
@@ -34,34 +43,35 @@ export const useFileHandler = <FileType>(
     data: FileType,
     shouldCreateBackup: boolean = false,
   ) => {
-    if (filePath === null) throw new Error("No config file path passed.")
+    if (fileRelativePath.value === null)
+      throw new Error("No config file path passed.")
 
-    const resolvedFilePath = await path.join(baseDir, filePath)
+    const filePath = await path.join(baseDir, fileRelativePath.value)
 
     if (shouldCreateBackup) {
       // Create backup
-      const resolvedBackupFilePathBase = `${resolvedFilePath}.backup`
-      let resolvedBackupFilePath: string = resolvedBackupFilePathBase
+      const backupFilePathBase = `${filePath}.backup`
+      let backupFilePath: string = backupFilePathBase
 
       // Check for duplicates
       let backupFileTries: number = 0
-      while (await exists(resolvedBackupFilePath)) {
+      while (await exists(backupFilePath)) {
         backupFileTries++
-        resolvedBackupFilePath = `${resolvedBackupFilePathBase}${backupFileTries}`
+        backupFilePath = `${backupFilePathBase}${backupFileTries}`
       }
 
       // Copy
-      await copyFile(resolvedFilePath, resolvedBackupFilePath)
+      await copyFile(filePath, backupFilePath)
     }
 
     const configDataString = JSON.stringify(data, undefined, 2)
 
     // Write to the file
-    await writeTextFile(resolvedFilePath, configDataString)
+    await writeTextFile(filePath, configDataString)
 
     // Ping all windows
     await invoke("update_config", {
-      from: await getCurrentWebviewWindow().label,
+      from: getCurrentWebviewWindow().label,
     })
   }
 
@@ -74,13 +84,14 @@ export const useFileHandler = <FileType>(
   const getFileData = async (
     defaultDataToMergeWith?: FileType,
   ): Promise<FileType | null> => {
-    if (filePath === null) throw new Error("No config file path passed.")
+    if (fileRelativePath.value === null)
+      throw new Error("No config file path passed.")
 
-    const resolvedFilePath = await path.join(baseDir, filePath)
-    if (!(await exists(resolvedFilePath))) return null // File doesn't exist
+    const filePath = await path.join(baseDir, fileRelativePath.value)
+    if (!(await exists(filePath))) return null // File doesn't exist
 
     // Read file
-    const rawFileData = await readTextFile(resolvedFilePath)
+    const rawFileData = await readTextFile(filePath)
 
     let fileData = JSON.parse(rawFileData)
 

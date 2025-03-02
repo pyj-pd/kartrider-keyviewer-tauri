@@ -21,7 +21,7 @@ export const useLogMessage = () => {
    * @param messageOption.detail Required. Detailed content of the log message.
    * @param showToast Whether to show the message as a toast in windows that are included in `TOAST_SHOW_WINDOW` constant.
    */
-  const writeLogMessage = async (
+  const writeLogMessage = (
     messageOption: LogMessageOptions,
     showToast: boolean = true,
   ) => {
@@ -49,7 +49,7 @@ export const useLogMessage = () => {
     // Show Toast
     if (showToast === false) return
 
-    const currentWindow = await getCurrentWebviewWindow()
+    const currentWindow = getCurrentWebviewWindow()
 
     const toastOption = { ...messageOption }
 

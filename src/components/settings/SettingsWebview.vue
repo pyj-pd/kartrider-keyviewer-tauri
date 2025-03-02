@@ -5,13 +5,17 @@ import StylingSettings from "./sections/StylingSettings.vue"
 import ColorSettings from "./sections/ColorSettings.vue"
 import KeySettings from "./sections/KeySettings.vue"
 import ProgramDescription from "./sections/ProgramDescription.vue"
+import ConfigFileSettings from "./sections/ConfigFileSettings.vue"
 
 initConfigUpdater()
 </script>
 
 <template>
   <main class="flex flex-col gap-2 p-3 w-screen">
+    <!-- Description -->
     <ProgramDescription />
+    <!-- Settings -->
+    <ConfigFileSettings />
     <KeySettings />
     <WindowSettings />
     <StylingSettings />

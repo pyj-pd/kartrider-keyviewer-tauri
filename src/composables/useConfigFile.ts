@@ -1,4 +1,7 @@
-import { configFilePath, defaultKeyViewerConfig } from "@/constants/config"
+import {
+  configFileRelativePath,
+  defaultKeyViewerConfig,
+} from "@/constants/config"
 import { useFileHandler } from "./useFileHandler"
 import { useConfigStore } from "@/stores/useConfigStore"
 import { KeyViewerConfigV1 } from "@/types/config"
@@ -14,7 +17,7 @@ import { useLogMessage } from "./useLogMessage"
 export const useConfigFile = () => {
   const configStore = useConfigStore()
   const { getFileData, saveDataToFile } = useFileHandler(
-    configFilePath,
+    configFileRelativePath,
     KeyViewerConfigV1,
   )
   const { writeLogMessage } = useLogMessage()
@@ -58,7 +61,7 @@ export const useConfigFile = () => {
 
     // Ping all windows
     await invoke("update_config", {
-      from: await getCurrentWebviewWindow().label,
+      from: getCurrentWebviewWindow().label,
     })
   }
 

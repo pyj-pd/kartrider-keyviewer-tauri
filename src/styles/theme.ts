@@ -66,6 +66,15 @@ export const MyPreset = definePreset(PrimeVueTheme, {
       },
     },
   },
+  components: {
+    cascadeselect: {
+      css: `
+.p-cascadeselect-option-list {
+  padding-left: calc(var(--spacing) * 3) !important;
+}
+`,
+    },
+  },
 })
 
 export const theme: PrimeVueConfiguration["theme"] = {

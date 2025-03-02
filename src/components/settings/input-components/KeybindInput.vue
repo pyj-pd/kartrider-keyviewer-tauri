@@ -59,7 +59,14 @@ const onKeyPress = (event: KeyboardEvent) => {
   <!-- Modal -->
   <Dialog v-model:visible="isDialogVisible" modal header="오류">
     <div className="flex flex-col gap-6 w-full">
-      <p>{{ invalidKeyCodeDialog }}은(는) 지원되지 않는 키입니다.</p>
+      <p>
+        해당 키{{
+          typeof invalidKeyCodeDialog === "string" &&
+          invalidKeyCodeDialog.length > 0
+            ? `(${invalidKeyCodeDialog})`
+            : ""
+        }}는 지원되지 않는 키입니다.
+      </p>
       <div class="flex justify-end">
         <Button @click="isDialogVisible = false">닫기</Button>
       </div>

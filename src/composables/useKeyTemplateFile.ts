@@ -18,7 +18,7 @@ export const useKeyTemplateFile = () => {
   const { keyTemplatePath } = storeToRefs(useConfigStore())
 
   const { getFileData, saveDataToFile } = useFileHandler(
-    keyTemplatePath.value,
+    keyTemplatePath,
     KeyTemplate,
   )
 
@@ -29,7 +29,10 @@ export const useKeyTemplateFile = () => {
    */
   const loadKeyTemplateFile = async () => {
     try {
-      const keyTemplateFileData = await getFileData(defaultKeyTemplate)
+      const keyTemplateFileData =
+        keyTemplatePath.value === null
+          ? defaultKeyTemplate // Use default key template if file path is `null`
+          : await getFileData(defaultKeyTemplate)
 
       // No key template file
       if (keyTemplateFileData === null) {
@@ -76,7 +79,7 @@ export const useKeyTemplateFile = () => {
 
       // Ping all windows
       await invoke("update_template", {
-        from: await getCurrentWebviewWindow().label,
+        from: getCurrentWebviewWindow().label,
       })
     } catch {
       writeLogMessage(

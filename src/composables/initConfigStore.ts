@@ -23,13 +23,21 @@ export const initConfigStore = () => {
   let keyTemplateUpdateListener: UnlistenFn
 
   // Apply key template if path changes
-  watch(keyTemplatePath, async () => loadKeyTemplateFile(), {
-    immediate: true,
-  })
+  watch(
+    [keyTemplatePath, isConfigLoaded],
+    async () => {
+      if (isConfigLoaded.value === false) return
+
+      await loadKeyTemplateFile()
+    },
+    {
+      immediate: true,
+    },
+  )
 
   onMounted(async () => {
     // Listen to config update
-    const currentWindow = await getCurrentWebviewWindow()
+    const currentWindow = getCurrentWebviewWindow()
 
     configUpdateListener = await listen<string>(
       "config-updated",

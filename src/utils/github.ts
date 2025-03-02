@@ -5,12 +5,16 @@ import { githubRepoReleasesApiLink } from "@/constants/project-info"
  * @returns Latest tag name, or `null` if unsuccessful.
  */
 export const getLatestGitTagName = async (): Promise<string | null> => {
-  const fetchRequest = await fetch(githubRepoReleasesApiLink)
-  const response = await fetchRequest.json()
+  try {
+    const fetchRequest = await fetch(githubRepoReleasesApiLink)
+    const response = await fetchRequest.json()
 
-  const tagName = response.tag_name
+    const tagName = response.tag_name
 
-  if (typeof tagName !== "string") return null
+    if (typeof tagName !== "string") return null
 
-  return tagName
+    return tagName
+  } catch {
+    return null
+  }
 }

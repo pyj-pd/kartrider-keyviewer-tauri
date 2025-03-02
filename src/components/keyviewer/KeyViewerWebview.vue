@@ -25,12 +25,17 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   window.removeEventListener("dblclick", openSettingsWindow)
 })
+
+const isDev = import.meta.env.DEV
 </script>
 
 <template>
   <main
     data-tauri-drag-region
-    class="grid auto-cols-fr auto-rows-fr w-auto h-screen *:pointer-events-none"
+    :class="[
+      'grid auto-cols-fr auto-rows-fr w-auto h-screen *:pointer-events-none',
+      isDev && 'bg-amber-600',
+    ]"
     v-if="keyTemplate"
     :style="{
       gridTemplate: keyTemplate.gridAreas.map((line) => `'${line}'`).join('\n'),

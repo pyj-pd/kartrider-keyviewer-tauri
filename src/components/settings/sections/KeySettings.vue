@@ -15,7 +15,9 @@ const { keyTemplate } = storeToRefs(useKeyTemplateStore())
           :key="gridAreaKey"
         >
           <div class="flex items-center gap-3 w-full">
-            <h3 class="block w-30 text-right">
+            <h3
+              class="block w-30 text-right overflow-hidden overflow-ellipsis whitespace-nowrap"
+            >
               {{ keybindData.description }}
             </h3>
             <div className="flex-1">
