@@ -19,6 +19,8 @@ type _FileRelativePath = string | null
  */
 export const CREATE_BACKUP_WINDOW = "keyviewer"
 
+const fileSaveDebounce = 300 // ms
+
 /**
  * Handler for saving, loading files.
  *
@@ -39,12 +41,29 @@ export const useFileHandler = <FileType>(
       : fileRelativePathArgument,
   )
 
+  let debounceTimer: NodeJS.Timeout | null = null
+
   /**
    * Saves data to the file.
    * @param data Data to write.
    * @param shouldCreateBackup Whether to create backup file before saving.
    */
   const saveDataToFile = async (
+    data: FileType,
+    shouldCreateBackup: boolean = false,
+  ) => {
+    if (debounceTimer !== null) clearTimeout(debounceTimer)
+
+    debounceTimer = setTimeout(
+      () => _writeDataToFile(data, shouldCreateBackup),
+      fileSaveDebounce,
+    )
+  }
+
+  /**
+   * Saves data to the file. Internal.
+   */
+  const _writeDataToFile = async (
     data: FileType,
     shouldCreateBackup: boolean = false,
   ) => {
