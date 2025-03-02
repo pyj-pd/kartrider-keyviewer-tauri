@@ -47,17 +47,18 @@ export const useFileHandler = <FileType>(
    * Saves data to the file.
    * @param data Data to write.
    * @param shouldCreateBackup Whether to create backup file before saving.
+   * @param invokeId What command to invoke after saving.
    */
-  const saveDataToFile = async (
+  const saveDataToFile = (
     data: FileType,
     shouldCreateBackup: boolean = false,
+    invokeId?: string,
   ) => {
     if (debounceTimer !== null) clearTimeout(debounceTimer)
 
-    debounceTimer = setTimeout(
-      () => _writeDataToFile(data, shouldCreateBackup),
-      fileSaveDebounce,
-    )
+    debounceTimer = setTimeout(() => {
+      _writeDataToFile(data, shouldCreateBackup, invokeId)
+    }, fileSaveDebounce)
   }
 
   /**
@@ -66,6 +67,7 @@ export const useFileHandler = <FileType>(
   const _writeDataToFile = async (
     data: FileType,
     shouldCreateBackup: boolean = false,
+    invokeId?: string,
   ) => {
     if (fileRelativePath.value === null)
       throw new Error("No config file path passed.")
@@ -97,9 +99,10 @@ export const useFileHandler = <FileType>(
     await writeTextFile(filePath, configDataString)
 
     // Ping all windows
-    await invoke("update_config", {
-      from: getCurrentWebviewWindow().label,
-    })
+    if (typeof invokeId === "string")
+      await invoke(invokeId, {
+        from: getCurrentWebviewWindow().label,
+      })
   }
 
   /**

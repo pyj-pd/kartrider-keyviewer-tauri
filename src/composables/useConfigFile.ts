@@ -5,8 +5,6 @@ import {
 import { useFileHandler } from "./useFileHandler"
 import { useConfigStore } from "@/stores/useConfigStore"
 import { KeyViewerConfigV1 } from "@/types/config"
-import { invoke } from "@tauri-apps/api/core"
-import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { logMessages } from "@/constants/log-messages"
 import { useLogMessage } from "./useLogMessage"
 
@@ -55,15 +53,9 @@ export const useConfigFile = () => {
    * Saves config store data to the config file.
    * @param shouldCreateBackup Whether to create backup file before saving.
    */
-  const saveConfigAsFile = async (shouldCreateBackup: boolean = false) => {
+  const saveConfigAsFile = async (shouldCreateBackup: boolean = false) =>
     // Write to the file
-    await saveDataToFile(configStore.$state, shouldCreateBackup)
-
-    // Ping all windows
-    await invoke("update_config", {
-      from: getCurrentWebviewWindow().label,
-    })
-  }
+    saveDataToFile(configStore.$state, shouldCreateBackup, "update_config")
 
   return { loadConfigFile, saveConfigAsFile }
 }

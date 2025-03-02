@@ -2,8 +2,6 @@ import { useConfigStore } from "@/stores/useConfigStore"
 import { storeToRefs } from "pinia"
 import { useFileHandler } from "./useFileHandler"
 import { KeyTemplate } from "@/types/key-templates"
-import { invoke } from "@tauri-apps/api/core"
-import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { useKeyTemplateStore } from "@/stores/useKeyTemplateStore"
 import { defaultKeyTemplate } from "@/constants/key-template"
 import { logMessages } from "@/constants/log-messages"
@@ -75,12 +73,7 @@ export const useKeyTemplateFile = () => {
 
     try {
       // Write to the file
-      await saveDataToFile(keyTemplate.value, shouldCreateBackup)
-
-      // Ping all windows
-      await invoke("update_template", {
-        from: getCurrentWebviewWindow().label,
-      })
+      saveDataToFile(keyTemplate.value, shouldCreateBackup, "update_template")
     } catch {
       writeLogMessage(
         {
