@@ -1,5 +1,5 @@
 use font_kit::source::SystemSource;
-use tauri::{Emitter, LogicalSize, Manager, Size};
+use tauri::{Emitter, Manager};
 
 
 #[tauri::command]
@@ -24,22 +24,6 @@ pub async fn open_settings(app: tauri::AppHandle) {
         .unwrap()
         .build()
         .unwrap();
-    }
-}
-
-#[tauri::command]
-pub async fn set_keyviewer_always_on_top(app: tauri::AppHandle, always_on_top: bool) {
-    if let Some(keyviewer_window) = app.get_webview_window("keyviewer") {
-        keyviewer_window.set_always_on_top(always_on_top).unwrap();
-    }
-}
-
-#[tauri::command]
-pub async fn set_keyviewer_window_size(app: tauri::AppHandle, width: f64, height: f64) {
-    if let Some(keyviewer_window) = app.get_webview_window("keyviewer") {
-        keyviewer_window
-            .set_size(Size::Logical(LogicalSize { width, height }))
-            .unwrap();
     }
 }
 

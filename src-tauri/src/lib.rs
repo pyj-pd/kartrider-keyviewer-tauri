@@ -30,8 +30,6 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::get_font_family_list,
             commands::open_settings,
-            commands::set_keyviewer_always_on_top,
-            commands::set_keyviewer_window_size,
             commands::update_config,
             commands::update_template,
         ])

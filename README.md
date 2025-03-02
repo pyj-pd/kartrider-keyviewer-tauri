@@ -4,7 +4,7 @@
 
 [](https://github.com/user-attachments/assets/0b9bfc86-9a03-41df-8c6c-6207d2b2ad53)
 
-[Vue.js](https://vuejs.org/)와 [Tauri](https://tauri.app/) 프레임워크를 이용하여 제작한 간단한 키뷰어 프로그램입니다.
+[Vue.js](https://vuejs.org/)와 [Tauri](https://tauri.app/) 프레임워크를 이용하여 제작한 간단한 오픈소스 키뷰어 프로그램입니다.
 
 ## 설치 및 사용 방법
 
